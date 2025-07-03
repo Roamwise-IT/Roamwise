@@ -13,24 +13,6 @@ Roamwise is a modern full-stack application that combines a powerful FastAPI bac
 
 ---
 
-## 🧩 Project Structure
-
-roamwise/
-├── Backend/       # FastAPI backend with Docker setup
-│   ├── main.py
-│   ├── Dockerfile
-│   ├── requirements.txt
-│   └── ...
-├── Frontend/      # React Native (Expo) frontend
-│   ├── app/
-│   ├── components/
-│   ├── assets/
-│   └── ...
-├── .gitignore
-└── README.md
-
----
-
 ## ⚙️ Backend (FastAPI)
 
 ### 🚢 Run locally (with Docker)
