@@ -1,7 +1,7 @@
 import { Text, View, StyleSheet } from "react-native";
 
 export default function Search() {
-  return <></>;
+  return;
 }
 
 // const styles = StyleSheet.create({

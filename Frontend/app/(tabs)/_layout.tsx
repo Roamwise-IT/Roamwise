@@ -1,5 +1,6 @@
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { Tabs } from "expo-router";
+import React from "react";
 
 export default function RootLayout() {
   return (
@@ -23,7 +24,11 @@ export default function RootLayout() {
           headerTintColor: "#fff",
           headerStyle: { backgroundColor: "#ff7800" },
           tabBarIcon: ({ color }) => (
-            <MaterialCommunityIcons name="cog" size={24} color={color} />
+            <MaterialCommunityIcons
+              name="store-search"
+              size={24}
+              color={color}
+            />
           ),
           tabBarActiveTintColor: "#ff7800",
         }}
