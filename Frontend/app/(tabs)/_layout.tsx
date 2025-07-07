@@ -17,9 +17,9 @@ export default function RootLayout() {
         }}
       />
       <Tabs.Screen
-        name="settings"
+        name="search"
         options={{
-          title: "Settings",
+          title: "Search",
           headerTintColor: "#fff",
           headerStyle: { backgroundColor: "#ff7800" },
           tabBarIcon: ({ color }) => (

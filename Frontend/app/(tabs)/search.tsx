@@ -1,6 +1,6 @@
 import { Text, View, StyleSheet } from "react-native";
 
-export default function Settings() {
+export default function Search() {
   return <></>;
 }
 
