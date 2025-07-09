@@ -1,8 +1,6 @@
-import SearchBar from "@/components/search-bar";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { Tabs } from "expo-router";
 import React from "react";
-import { View } from "react-native";
 
 export default function RootLayout() {
   return (
@@ -13,7 +11,7 @@ export default function RootLayout() {
           title: "Home",
           headerTintColor: "#fff",
           headerStyle: { backgroundColor: "#ff7800" },
-          tabBarIcon: ({ color }) => (
+          tabBarIcon: ({ color }: { color: string }) => (
             <MaterialCommunityIcons name="home" size={24} color={color} />
           ),
           tabBarActiveTintColor: "#ff7800",
@@ -22,14 +20,9 @@ export default function RootLayout() {
       <Tabs.Screen
         name="search"
         options={{
-          headerStyle: { backgroundColor: "#ff7800", height: 100 }, // increase header height
-          headerTitle: () => (
-            <View style={{ flex: 1, paddingRight: 10 }}>
-              <SearchBar />
-            </View>
-          ), // override default title with SearchBar
+          headerShown: false, // ✅ Hide default header
           tabBarActiveTintColor: "#ff7800",
-          tabBarIcon: ({ color }) => (
+          tabBarIcon: ({ color }: { color: string }) => (
             <MaterialCommunityIcons
               name="store-search"
               size={24}

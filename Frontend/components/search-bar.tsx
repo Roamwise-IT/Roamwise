@@ -1,44 +1,69 @@
-import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { useState } from "react";
-import { TextInput, View, StyleSheet, TouchableOpacity } from "react-native";
+import React from 'react';
+import { View, TextInput, StyleSheet, TouchableOpacity } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
 
-const SearchBar = () => {
-  const [text, setText] = useState("");
-
-  return (
-    <View style={styles.searchBar}>
-      <TextInput
-        style={styles.input}
-        placeholder="Search stores..."
-        placeholderTextColor="#888"
-        value={text}
-        onChangeText={setText}
-      />
-      <TouchableOpacity>
-        <MaterialCommunityIcons name="magnify" size={24} color="#000" />
-      </TouchableOpacity>
-      <TouchableOpacity onPress={() => setText("")}>
-        <MaterialCommunityIcons name="close" size={24} color="#000" />
-      </TouchableOpacity>
-    </View>
-  );
+type Props = {
+  value: string;
+  onChangeText: (text: string) => void;
+  onSubmit?: () => void;
+  onClear?: () => void;
 };
 
+export default function SearchBar({ value, onChangeText, onSubmit, onClear }: Props) {
+  return (
+    <View style={styles.wrapper}>
+      <View style={styles.searchContainer}>
+        {/* 🔍 Search Icon */}
+        <Ionicons
+          name="search"
+          size={20}
+          color="gray"
+          style={{ marginRight: 8 }}
+        />
+
+        {/* 🔤 Input */}
+        <TextInput
+          style={styles.searchInput}
+          placeholder="Search"
+          placeholderTextColor="#000"
+          value={value}
+          onChangeText={onChangeText}
+          onSubmitEditing={onSubmit}
+        />
+
+        {/* ❌ Clear Icon */}
+        {value.length > 0 && (
+          <TouchableOpacity onPress={onClear}>
+            <Ionicons name="close" size={20} color="black" />
+          </TouchableOpacity>
+        )}
+      </View>
+    </View>
+  );
+}
+
 const styles = StyleSheet.create({
-  searchBar: {
-    flexDirection: "row",
-    alignItems: "center",
-    backgroundColor: "#fff",
-    paddingHorizontal: 12,
-    paddingVertical: 6,
-    borderRadius: 10,
-    flex: 1, // crucial to stretch within headerTitle wrapper
+  wrapper: {
+    backgroundColor: '#f97316',
+    paddingHorizontal: 16,
+    paddingTop: 40,
+    paddingBottom: 20,
   },
-  input: {
+  searchContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: 'white',
+    borderRadius: 10,
+    paddingHorizontal: 12,
+    paddingVertical: 10,
+    width: '100%',
+    maxWidth: 500, // looks better on web
+  },
+  searchInput: {
     flex: 1,
     fontSize: 16,
-    color: "#000",
+    color: 'black',
+    paddingRight: 10,
+    paddingVertical: 0,
   },
 });
-
-export default SearchBar;
