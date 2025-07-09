@@ -1,43 +1,40 @@
-/**
- * Below are the colors that are used in the app. The colors are defined in the light and dark mode.
- * There are many other ways to style your app. For example, [Nativewind](https://www.nativewind.dev/), [Tamagui](https://tamagui.dev/), [unistyles](https://reactnativeunistyles.vercel.app), etc.
- */
+// File: constants/Colors.ts
 
-const orange = "#FF7800"; // Flamenco
-const white = "#EBEBEB"; // Gallery
-const black = "#201E1D"; // Aztec
-const gray = "#CFCCC9"; // Celeste
-
-const orange10 = "#8C7F73";
-const orange20 = "#997E66";
-const orange30 = "#A67D59";
-const orange40 = "#B27C4D";
-const orange50 = "#BF7C40";
-const orange60 = "#CC7B33";
-const orange70 = "#D97A26";
-const orange80 = "#E67A19";
-const orange90 = "#F2790D";
-
-// const tintColorLight = orange;
-// const tintColorDark = white;
-
-const tintColor = orange;
+const orange = "#FF7800"; // Primary tint
+const white = "#FFFFFF"; // Base light
+const black = "#121212"; // True dark
+const gray = "#A9A9A9"; // Neutral gray
+const lightGray = "#F5F5F5"; // Light background
+const darkGray = "#2C2C2E"; // Dark surface
 
 export const Colors = {
   light: {
     text: black,
-    background: white,
-    tint: tintColor,
+    subtext: "#555",
+    background: lightGray,
+    card: white,
+    surface: "#E0E0E0",
+    placeholder: gray,
+    tint: orange,
     icon: black,
     tabIconDefault: gray,
-    tabIconSelected: tintColor,
+    tabIconSelected: orange,
   },
   dark: {
     text: white,
+    subtext: "#AAA",
     background: black,
-    tint: tintColor,
+    card: darkGray,
+    surface: "#1E1E1E",
+    placeholder: "#888",
+    tint: orange,
     icon: white,
     tabIconDefault: gray,
-    tabIconSelected: tintColor,
+    tabIconSelected: orange,
   },
+};
+
+// ✅ Helper to access color scheme based values
+export const getColors = (scheme: 'light' | 'dark' = 'light') => {
+  return Colors[scheme];
 };

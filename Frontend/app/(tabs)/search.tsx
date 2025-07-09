@@ -1,47 +1,51 @@
-import React, { useState } from "react";
-import { View, StyleSheet } from "react-native";
+import React, { useState } from 'react';
+import { View, StyleSheet } from 'react-native';
 
-// ✅ Custom components
-import SearchBar from "../../components/search-bar";         // Search bar at the top
-import QuestionCard from "../../components/question-card";   // "Have you passed KFC?" yes/no
-import StoreCard from "@/components/store-card";             // Store info cards
+import SearchBar from '../../components/search-bar';
+import QuestionCard from '../../components/question-card';
+import StoreCard from '@/components/store-card';
+import ThemeToggle from '@/components/theme-toggle';
+import { getColors } from '@/constants/Colors';
+import { useTheme } from '@/providers/theme-provider';
 
 export default function Search() {
-  const [query, setQuery] = useState(""); // 🔍 Search input state
+  const [query, setQuery] = useState('');
+  const { theme } = useTheme();
+  const colors = getColors(theme);
 
   return (
-    <View style={styles.container}>
-      {/* 🔎 Search Bar at the top */}
+    <View style={[styles.container, { backgroundColor: colors.background }]}>
+      {/* 🌗 Theme toggle button */}
+      <ThemeToggle />
+
+      {/* 🔎 Search bar */}
       <SearchBar
         value={query}
         onChangeText={setQuery}
-        onSubmit={() => console.log("Search:", query)}
-        onClear={() => setQuery("")}
+        onSubmit={() => console.log('Search:', query)}
+        onClear={() => setQuery('')}
       />
 
-      {/* ❓ Question Prompt with Yes / No logic */}
+      {/* ❓ Question card */}
       <QuestionCard
         question="Have you passed KFC?"
-        onYes={() => console.log("User said YES")}
-        onNo={() => console.log("User said NO")}
+        onYes={() => console.log('User said YES')}
+        onNo={() => console.log('User said NO')}
       />
 
-      {/* 🏬 Store Cards */}
+      {/* 🏬 Store cards */}
       <StoreCard
         name="KFC"
         hours="10:00 AM - 10:00 PM"
         category="Fast Food"
         floor="1"
       />
-
       <StoreCard
         name="Nanas"
         hours="00:00 AM - 00:00 PM"
         category="Fast Food"
         floor="1"
       />
-
-      {/* 🧪 You can later replace the above StoreCards with a loop and filter via query */}
     </View>
   );
 }
@@ -49,6 +53,5 @@ export default function Search() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#f3f3f3", // 🖼️ Soft light grey background (like your mockup)
   },
 });

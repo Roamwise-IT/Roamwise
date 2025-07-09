@@ -1,6 +1,8 @@
 import React from 'react';
 import { View, TextInput, StyleSheet, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import { useTheme } from '@/providers/theme-provider';
+import { getColors } from '@/constants/Colors';
 
 type Props = {
   value: string;
@@ -10,31 +12,29 @@ type Props = {
 };
 
 export default function SearchBar({ value, onChangeText, onSubmit, onClear }: Props) {
+  const { theme } = useTheme();
+  const colors = getColors(theme);
+
   return (
-    <View style={styles.wrapper}>
-      <View style={styles.searchContainer}>
-        {/* 🔍 Search Icon */}
+    <View style={[styles.wrapper, { backgroundColor: colors.tint }]}>
+      <View style={[styles.searchContainer, { backgroundColor: colors.background }]}>
         <Ionicons
           name="search"
           size={20}
-          color="gray"
+          color={colors.icon}
           style={{ marginRight: 8 }}
         />
-
-        {/* 🔤 Input */}
         <TextInput
-          style={styles.searchInput}
+          style={[styles.searchInput, { color: colors.text }]}
           placeholder="Search"
-          placeholderTextColor="#000"
+          placeholderTextColor={colors.icon}
           value={value}
           onChangeText={onChangeText}
           onSubmitEditing={onSubmit}
         />
-
-        {/* ❌ Clear Icon */}
         {value.length > 0 && (
           <TouchableOpacity onPress={onClear}>
-            <Ionicons name="close" size={20} color="black" />
+            <Ionicons name="close" size={20} color={colors.icon} />
           </TouchableOpacity>
         )}
       </View>
@@ -44,7 +44,6 @@ export default function SearchBar({ value, onChangeText, onSubmit, onClear }: Pr
 
 const styles = StyleSheet.create({
   wrapper: {
-    backgroundColor: '#f97316',
     paddingHorizontal: 16,
     paddingTop: 40,
     paddingBottom: 20,
@@ -52,17 +51,15 @@ const styles = StyleSheet.create({
   searchContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: 'white',
     borderRadius: 10,
     paddingHorizontal: 12,
     paddingVertical: 10,
     width: '100%',
-    maxWidth: 500, // looks better on web
+    maxWidth: 500,
   },
   searchInput: {
     flex: 1,
     fontSize: 16,
-    color: 'black',
     paddingRight: 10,
     paddingVertical: 0,
   },
