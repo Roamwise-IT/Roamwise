@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { View, StyleSheet } from "react-native";
 import SearchBar from "../../components/search-bar"; // ✅ Adjusted import
+import QuestionCard from "../../components/question-card"; // ✅ Adjusted import
 
 export default function Search() {
   const [query, setQuery] = useState("");
@@ -13,7 +14,19 @@ export default function Search() {
         onSubmit={() => console.log("Search:", query)}
         onClear={() => setQuery("")}
       />
+
+
+            {/* 👇 Add the question card */}
+      <QuestionCard
+        question="Have you passed KFC?"
+        onYes={() => console.log("User said YES")}
+        onNo={() => console.log("User said NO")}
+      />
+
     </View>
+
+    
+
   );
 }
 
