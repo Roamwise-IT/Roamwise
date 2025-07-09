@@ -4,45 +4,56 @@ import { Tabs } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 import { useTheme } from '@/providers/theme-provider';
 import { getColors } from '@/constants/Colors';
+import { View } from 'react-native';
 
 export default function TabLayout() {
   const { theme } = useTheme();
   const colors = getColors(theme);
 
   return (
-    <Tabs
-      screenOptions={({ route }: { route: { name: string } }) => ({
-        headerShown: false,
-        tabBarActiveTintColor: colors.tabIconSelected,
-        tabBarInactiveTintColor: colors.tabIconDefault,
-        tabBarStyle: {
-          backgroundColor: colors.background,
-          borderTopWidth: 0,
-        },
-        tabBarLabelStyle: {
-          fontSize: 12,
-          fontWeight: '600',
-        },
-        tabBarIcon: ({
-          color,
-          size,
-          focused,
-        }: {
-          color: string;
-          size: number;
-          focused: boolean;
-        }) => {
-          let iconName: keyof typeof Ionicons.glyphMap = 'home';
+    <>
+      {/* 🟧 Orange line above bottom tab bar */}
+      <View
+        style={{
+          height: 2,
+          backgroundColor: '#FF7800',
+        }}
+      />
 
-          if (route.name === 'index') {
-            iconName = 'home';
-          } else if (route.name === 'search') {
-            iconName = 'search';
-          }
+      <Tabs
+        screenOptions={({ route }: { route: { name: string } }) => ({
+          headerShown: false,
+          tabBarActiveTintColor: colors.tabIconSelected,
+          tabBarInactiveTintColor: colors.tabIconDefault,
+          tabBarStyle: {
+            backgroundColor: colors.background,
+            borderTopWidth: 0,
+          },
+          tabBarLabelStyle: {
+            fontSize: 12,
+            fontWeight: '600',
+          },
+          tabBarIcon: ({
+            color,
+            size,
+            focused,
+          }: {
+            color: string;
+            size: number;
+            focused: boolean;
+          }) => {
+            let iconName: keyof typeof Ionicons.glyphMap = 'home';
 
-          return <Ionicons name={iconName} size={size} color={color} />;
-        },
-      })}
-    />
+            if (route.name === 'index') {
+              iconName = 'home';
+            } else if (route.name === 'search') {
+              iconName = 'search';
+            }
+
+            return <Ionicons name={iconName} size={size} color={color} />;
+          },
+        })}
+      />
+    </>
   );
 }

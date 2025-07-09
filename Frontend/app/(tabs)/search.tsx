@@ -1,7 +1,5 @@
-// File: app/(tabs)/search.tsx
-
 import React, { useState } from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, ScrollView } from 'react-native';
 
 import SearchBar from '../../components/search-bar';
 import QuestionCard from '../../components/question-card';
@@ -15,39 +13,49 @@ export default function Search() {
   const { theme } = useTheme();
   const colors = getColors(theme);
 
+  const dividerColor = theme === 'light' ? '#DDDDDD' : '#444444';
+
   return (
     <View style={[styles.container, { backgroundColor: colors.background }]}>
-      {/* 🔎 Search area with toggle */}
-      <View style={[styles.searchWrapper, { backgroundColor: colors.tint }]}>
-        <SearchBar
-          value={query}
-          onChangeText={setQuery}
-          onSubmit={() => console.log('Search:', query)}
-          onClear={() => setQuery('')}
+      {/* 🔲 Top grey line just below the orange */}
+      <View style={{ height: 1, backgroundColor: dividerColor }} />
+
+      <ScrollView contentContainerStyle={{ paddingBottom: 80 }}>
+        {/* 🔎 Search bar and toggle */}
+        <View style={[styles.searchWrapper, { backgroundColor: colors.tint }]}>
+          <SearchBar
+            value={query}
+            onChangeText={setQuery}
+            onSubmit={() => console.log('Search:', query)}
+            onClear={() => setQuery('')}
+          />
+          <ThemeToggle />
+        </View>
+
+        {/* ❓ Question card */}
+        <QuestionCard
+          question="Have you passed KFC?"
+          onYes={() => console.log('User said YES')}
+          onNo={() => console.log('User said NO')}
         />
-        <ThemeToggle />
-      </View>
 
-      {/* ❓ Question card */}
-      <QuestionCard
-        question="Have you passed KFC?"
-        onYes={() => console.log('User said YES')}
-        onNo={() => console.log('User said NO')}
-      />
+        {/* 🏬 Store cards */}
+        <StoreCard
+          name="KFC"
+          hours="10:00 AM - 10:00 PM"
+          category="Fast Food"
+          floor="1"
+        />
+        <StoreCard
+          name="Nanas"
+          hours="00:00 AM - 00:00 PM"
+          category="Fast Food"
+          floor="1"
+        />
+      </ScrollView>
 
-      {/* 🏬 Store cards */}
-      <StoreCard
-        name="KFC"
-        hours="10:00 AM - 10:00 PM"
-        category="Fast Food"
-        floor="1"
-      />
-      <StoreCard
-        name="Nanas"
-        hours="00:00 AM - 00:00 PM"
-        category="Fast Food"
-        floor="1"
-      />
+      {/* 🟧 Bottom orange line, fixed just above nav bar */}
+      <View style={{ height: 2, backgroundColor: '#FF7800' }} />
     </View>
   );
 }
