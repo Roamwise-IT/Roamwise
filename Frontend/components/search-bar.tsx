@@ -43,15 +43,14 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderRadius: 10,
     paddingHorizontal: 12,
-    paddingVertical: 10,
+    paddingVertical: 6, // 🔽 reduced from 10 to tighten vertical space
     flex: 1,
     marginRight: 12,
-    marginTop: 0,
   },
   searchInput: {
     flex: 1,
     fontSize: 16,
     paddingRight: 10,
-    paddingVertical: 0,
+    paddingVertical: 4, // ✅ added to fine-tune vertical spacing of text
   },
 });

@@ -12,14 +12,6 @@ export default function TabLayout() {
 
   return (
     <>
-      {/* 🟧 Orange line above bottom tab bar */}
-      <View
-        style={{
-          height: 2,
-          backgroundColor: '#FF7800',
-        }}
-      />
-
       <Tabs
         screenOptions={({ route }: { route: { name: string } }) => ({
           headerShown: false,
@@ -54,6 +46,9 @@ export default function TabLayout() {
           },
         })}
       />
+
+      {/* 🟧 Orange line above bottom nav */}
+      <View style={{ height: 2, backgroundColor: colors.tint }} />
     </>
   );
 }

@@ -17,9 +17,6 @@ export default function Search() {
 
   return (
     <View style={[styles.container, { backgroundColor: colors.background }]}>
-      {/* 🔲 Top grey line just below the orange */}
-      <View style={{ height: 1, backgroundColor: dividerColor }} />
-
       <ScrollView contentContainerStyle={{ paddingBottom: 80 }}>
         {/* 🔎 Search bar and toggle */}
         <View style={[styles.searchWrapper, { backgroundColor: colors.tint }]}>
@@ -31,6 +28,9 @@ export default function Search() {
           />
           <ThemeToggle />
         </View>
+
+        {/* 🔲 Top grey divider after orange area */}
+        <View style={{ height: 1, backgroundColor: dividerColor }} />
 
         {/* ❓ Question card */}
         <QuestionCard
