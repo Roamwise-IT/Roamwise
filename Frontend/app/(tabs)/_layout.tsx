@@ -1,36 +1,48 @@
-import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { Tabs } from "expo-router";
-import React from "react";
+// File: app/(tabs)/_layout.tsx
 
-export default function RootLayout() {
+import { Tabs } from 'expo-router';
+import { Ionicons } from '@expo/vector-icons';
+import { useTheme } from '@/providers/theme-provider';
+import { getColors } from '@/constants/Colors';
+
+export default function TabLayout() {
+  const { theme } = useTheme();
+  const colors = getColors(theme);
+
   return (
-    <Tabs backBehavior="history">
-      <Tabs.Screen
-        name="index"
-        options={{
-          title: "Home",
-          headerTintColor: "#fff",
-          headerStyle: { backgroundColor: "#ff7800" },
-          tabBarIcon: ({ color }: { color: string }) => (
-            <MaterialCommunityIcons name="home" size={24} color={color} />
-          ),
-          tabBarActiveTintColor: "#ff7800",
-        }}
-      />
-      <Tabs.Screen
-        name="search"
-        options={{
-          headerShown: false, // ✅ Hide default header
-          tabBarActiveTintColor: "#ff7800",
-          tabBarIcon: ({ color }: { color: string }) => (
-            <MaterialCommunityIcons
-              name="store-search"
-              size={24}
-              color={color}
-            />
-          ),
-        }}
-      />
-    </Tabs>
+    <Tabs
+      screenOptions={({ route }: { route: { name: string } }) => ({
+        headerShown: false,
+        tabBarActiveTintColor: colors.tabIconSelected,
+        tabBarInactiveTintColor: colors.tabIconDefault,
+        tabBarStyle: {
+          backgroundColor: colors.background,
+          borderTopWidth: 0,
+        },
+        tabBarLabelStyle: {
+          fontSize: 12,
+          fontWeight: '600',
+        },
+        tabBarIcon: ({
+          color,
+          size,
+          focused,
+        }: {
+          color: string;
+          size: number;
+          focused: boolean;
+        }) => {
+          let iconName: keyof typeof Ionicons.glyphMap = 'home';
+
+          if (route.name === 'index') {
+            iconName = 'home';
+          } else if (route.name === 'search') {
+            iconName = 'search';
+          }
+
+          return <Ionicons name={iconName} size={size} color={color} />;
+        },
+      })}
+    />
   );
 }
