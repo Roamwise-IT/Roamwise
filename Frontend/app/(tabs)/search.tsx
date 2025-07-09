@@ -1,3 +1,5 @@
+// File: app/(tabs)/search.tsx
+
 import React, { useState } from 'react';
 import { View, StyleSheet } from 'react-native';
 
@@ -15,16 +17,16 @@ export default function Search() {
 
   return (
     <View style={[styles.container, { backgroundColor: colors.background }]}>
-      {/* 🌗 Theme toggle button */}
-      <ThemeToggle />
-
-      {/* 🔎 Search bar */}
-      <SearchBar
-        value={query}
-        onChangeText={setQuery}
-        onSubmit={() => console.log('Search:', query)}
-        onClear={() => setQuery('')}
-      />
+      {/* 🔎 Search area with toggle */}
+      <View style={[styles.searchWrapper, { backgroundColor: colors.tint }]}>
+        <SearchBar
+          value={query}
+          onChangeText={setQuery}
+          onSubmit={() => console.log('Search:', query)}
+          onClear={() => setQuery('')}
+        />
+        <ThemeToggle />
+      </View>
 
       {/* ❓ Question card */}
       <QuestionCard
@@ -53,5 +55,13 @@ export default function Search() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+  },
+  searchWrapper: {
+    paddingTop: 40,
+    paddingBottom: 10,
+    paddingHorizontal: 16,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
   },
 });
