@@ -1,6 +1,9 @@
 import pandas as pd
 import sqlite3
 
+
+# HALLO RYAN
+
 # === Step 1: Load CSV with Contact_Number as string ===
 csv_file = "./malls/MallWinnieMandelaCresent - WinnieMandelaCresent.csv"  # <-- Update to match your actual file
 df = pd.read_csv(csv_file, dtype={"Contact_Number": str})
