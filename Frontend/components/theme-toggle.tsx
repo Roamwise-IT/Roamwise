@@ -12,8 +12,8 @@ export default function ThemeToggle() {
     <TouchableOpacity onPress={toggleTheme} style={styles.button}>
       <Ionicons
         name={theme === "light" ? "moon" : "sunny"}
+        color={theme === "light" ? colors.card : colors.surface}
         size={24}
-        color={theme === "light" ? colors.subtext : colors.tint}
       />
     </TouchableOpacity>
   );
