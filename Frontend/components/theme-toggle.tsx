@@ -1,4 +1,4 @@
-import { getColors } from "@/constants/Colors";
+import { Colors } from "@/constants/Colors";
 import { Spacing } from "@/constants/Spacing";
 import { useTheme } from "@/providers/theme-provider";
 import { Ionicons } from "@expo/vector-icons";
@@ -7,13 +7,12 @@ import { StyleSheet, TouchableOpacity } from "react-native";
 
 export default function ThemeToggle() {
   const { theme, toggleTheme } = useTheme();
-  const colors = getColors(theme);
 
   return (
     <TouchableOpacity onPress={toggleTheme} style={styles.button}>
       <Ionicons
         name={theme === "light" ? "moon" : "sunny"}
-        color={theme === "light" ? colors.card : colors.surface}
+        color={theme === "light" ? Colors.neutral.white : Colors.neutral.black}
         size={24}
       />
     </TouchableOpacity>
