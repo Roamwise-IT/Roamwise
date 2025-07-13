@@ -11,6 +11,8 @@ venv/
 ENV/
 env/
 .mypy_cache/
+# Ignore environment secrets
+Backend/.env
 
 # Docker
 *.log
