@@ -1,8 +1,8 @@
-import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
-import { useTheme } from '@/providers/theme-provider';
-import { getColors } from '@/constants/Colors';
+import React from "react";
+import { View, Text, StyleSheet } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
+import { useTheme } from "@/providers/theme-provider";
+import { getColors } from "@/constants/Colors";
 
 type Props = {
   name: string;
@@ -16,23 +16,39 @@ export default function StoreCard({ name, hours, category, floor }: Props) {
   const colors = getColors(theme);
 
   return (
-    <View style={[styles.card, { backgroundColor: colors.background, shadowColor: colors.text }]}>
+    <View
+      style={[
+        styles.card,
+        { backgroundColor: colors.card, shadowColor: colors.text },
+      ]}
+    >
       {/* 🏬 Title row */}
       <View style={styles.row}>
         <Text style={[styles.storeName, { color: colors.text }]}>{name}</Text>
-        <Text style={[styles.separator, { color: colors.text }]}>|</Text>
-        <Text style={[styles.category, { color: colors.text }]}>{category}</Text>
-        <Text style={[styles.floorText, { color: colors.text }]}>Floor Level: {floor}</Text>
+        <Text style={[styles.separator, { color: colors.subtext }]}>|</Text>
+        <Text style={[styles.category, { color: colors.subtext }]}>
+          {category}
+        </Text>
+        <Text style={[styles.floorText, { color: colors.subtext }]}>
+          Floor Level: {floor}
+        </Text>
       </View>
 
       {/* ⏰ Hours row */}
       <View style={styles.row}>
-        <Ionicons name="time" size={14} color={colors.text} style={styles.icon} />
-        <Text style={[styles.hours, { color: colors.text }]}>Open | {hours}</Text>
+        <Ionicons
+          name="time"
+          size={14}
+          color={colors.subtext}
+          style={styles.icon}
+        />
+        <Text style={[styles.hours, { color: colors.subtext }]}>
+          Open | {hours}
+        </Text>
       </View>
 
       {/* 🔖 Promo / Recommendation section */}
-      <Text style={[styles.placeholder, { color: colors.icon }]}>
+      <Text style={[styles.placeholder, { color: colors.placeholder }]}>
         PLACEHOLDER: RECOMMENDATIONS/ PROMOS/ DISCOUNTS
       </Text>
     </View>
@@ -51,14 +67,14 @@ const styles = StyleSheet.create({
     elevation: 2,
   },
   row: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    flexWrap: 'wrap',
+    flexDirection: "row",
+    alignItems: "center",
+    flexWrap: "wrap",
     marginBottom: 6,
   },
   storeName: {
     fontSize: 15,
-    fontWeight: '700',
+    fontWeight: "700",
     marginRight: 6,
   },
   separator: {
@@ -67,12 +83,12 @@ const styles = StyleSheet.create({
   },
   category: {
     fontSize: 14,
-    fontWeight: '500',
+    fontWeight: "500",
   },
   floorText: {
-    marginLeft: 'auto',
+    marginLeft: "auto",
     fontSize: 12,
-    fontWeight: '500',
+    fontWeight: "500",
   },
   icon: {
     marginRight: 4,
@@ -83,6 +99,6 @@ const styles = StyleSheet.create({
   placeholder: {
     marginTop: 8,
     fontSize: 13,
-    fontStyle: 'italic',
+    fontStyle: "italic",
   },
 });
