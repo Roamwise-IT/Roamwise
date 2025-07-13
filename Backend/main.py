@@ -13,7 +13,7 @@ app = FastAPI()
 
 @app.get("/")
 def read_root():
-    return {"message" : "http://127.0.0.1:8000/docs  ---> test endpoints"}
+    return {"message" : "http://127.0.0.1:8000/docs  --- test endpoints"}
 
 # CORS for React Native
 app.add_middleware(
