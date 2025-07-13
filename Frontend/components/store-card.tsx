@@ -1,8 +1,9 @@
-import React from "react";
-import { View, Text, StyleSheet } from "react-native";
-import { Ionicons } from "@expo/vector-icons";
-import { useTheme } from "@/providers/theme-provider";
 import { getColors } from "@/constants/Colors";
+import { Spacing } from "@/constants/Spacing";
+import { useTheme } from "@/providers/theme-provider";
+import { Ionicons } from "@expo/vector-icons";
+import React from "react";
+import { StyleSheet, Text, View } from "react-native";
 
 type Props = {
   name: string;
@@ -22,7 +23,6 @@ export default function StoreCard({ name, hours, category, floor }: Props) {
         { backgroundColor: colors.card, shadowColor: colors.text },
       ]}
     >
-      {/* 🏬 Title row */}
       <View style={styles.row}>
         <Text style={[styles.storeName, { color: colors.text }]}>{name}</Text>
         <Text style={[styles.separator, { color: colors.subtext }]}>|</Text>
@@ -34,7 +34,6 @@ export default function StoreCard({ name, hours, category, floor }: Props) {
         </Text>
       </View>
 
-      {/* ⏰ Hours row */}
       <View style={styles.row}>
         <Ionicons
           name="time"
@@ -47,7 +46,6 @@ export default function StoreCard({ name, hours, category, floor }: Props) {
         </Text>
       </View>
 
-      {/* 🔖 Promo / Recommendation section */}
       <Text style={[styles.placeholder, { color: colors.placeholder }]}>
         PLACEHOLDER: RECOMMENDATIONS/ PROMOS/ DISCOUNTS
       </Text>
@@ -57,9 +55,9 @@ export default function StoreCard({ name, hours, category, floor }: Props) {
 
 const styles = StyleSheet.create({
   card: {
-    padding: 14,
-    marginVertical: 8,
-    marginHorizontal: 16,
+    padding: Spacing.xxl,
+    marginVertical: Spacing.md,
+    marginHorizontal: Spacing.xl,
     borderRadius: 12,
     shadowOpacity: 0.05,
     shadowOffset: { width: 0, height: 1 },
@@ -70,16 +68,16 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     flexWrap: "wrap",
-    marginBottom: 6,
+    marginBottom: Spacing.sm,
   },
   storeName: {
     fontSize: 15,
     fontWeight: "700",
-    marginRight: 6,
+    marginRight: Spacing.md,
   },
   separator: {
     fontSize: 14,
-    marginHorizontal: 4,
+    marginHorizontal: Spacing.sm,
   },
   category: {
     fontSize: 14,
@@ -91,13 +89,13 @@ const styles = StyleSheet.create({
     fontWeight: "500",
   },
   icon: {
-    marginRight: 4,
+    marginRight: Spacing.sm,
   },
   hours: {
     fontSize: 13,
   },
   placeholder: {
-    marginTop: 8,
+    marginTop: Spacing.sm,
     fontSize: 13,
     fontStyle: "italic",
   },

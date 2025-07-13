@@ -1,8 +1,9 @@
-import React from "react";
-import { TouchableOpacity, StyleSheet } from "react-native";
-import { Ionicons } from "@expo/vector-icons";
-import { useTheme } from "@/providers/theme-provider";
 import { getColors } from "@/constants/Colors";
+import { Spacing } from "@/constants/Spacing";
+import { useTheme } from "@/providers/theme-provider";
+import { Ionicons } from "@expo/vector-icons";
+import React from "react";
+import { StyleSheet, TouchableOpacity } from "react-native";
 
 export default function ThemeToggle() {
   const { theme, toggleTheme } = useTheme();
@@ -22,6 +23,6 @@ export default function ThemeToggle() {
 const styles = StyleSheet.create({
   button: {
     alignSelf: "flex-end",
-    margin: 16,
+    margin: Spacing.huge,
   },
 });
