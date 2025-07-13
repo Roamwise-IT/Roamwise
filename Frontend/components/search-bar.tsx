@@ -1,8 +1,9 @@
-import React from "react";
-import { View, TextInput, StyleSheet, TouchableOpacity } from "react-native";
-import { Ionicons } from "@expo/vector-icons";
-import { useTheme } from "@/providers/theme-provider";
 import { getColors } from "@/constants/Colors";
+import { Spacing } from "@/constants/Spacing";
+import { useTheme } from "@/providers/theme-provider";
+import { Ionicons } from "@expo/vector-icons";
+import React from "react";
+import { StyleSheet, TextInput, TouchableOpacity, View } from "react-native";
 
 type Props = {
   value: string;
@@ -50,18 +51,18 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     borderRadius: 10,
-    paddingHorizontal: 12,
-    paddingVertical: 6, // tightened vertical space
+    paddingHorizontal: Spacing.xl, // 12
+    paddingVertical: Spacing.sm, // 6
     flex: 1,
-    marginRight: 12,
+    marginRight: Spacing.xl, // 12
   },
   icon: {
-    marginRight: 8,
+    marginRight: Spacing.md, // 8
   },
   searchInput: {
     flex: 1,
     fontSize: 16,
-    paddingRight: 10,
-    paddingVertical: 4, // fine-tuned vertical padding
+    paddingRight: Spacing.lg, // 10
+    paddingVertical: Spacing.xs, // 4
   },
 });
