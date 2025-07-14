@@ -3,28 +3,40 @@ from sqlalchemy.orm import Session
 from datetime import datetime
 from typing import Optional
 
-from db import get_db
-from model import MallStore
+from db import get_db, engine
+from models import Base, MallStore
 from schemas import StoreResponse, StoreCard
 
 from fastapi.middleware.cors import CORSMiddleware
 
-app = FastAPI()
+# ✅ Automatically create tables in Supabase if they don't exist
+Base.metadata.create_all(bind=engine)
 
-@app.get("/")
-def read_root():
-    return {"message" : "http://127.0.0.1:8000/docs  --- test endpoints"}
+# 🚀 Initialize FastAPI app
+app = FastAPI(title="RoamWise API")
 
-# CORS for React Native
+# 🔓 Allow CORS (React Native frontend)
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # Update for production
+    allow_origins=["*"],  # Change to your frontend domain in production
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
+<<<<<<< HEAD
 # Get all stores 
+=======
+# ✅ Root route
+@app.get("/")
+def read_root():
+    return {
+        "message": "http://127.0.0.1:8000/docs  --- test endpoints",
+        "status": "RoamWise API is running 🚀"
+    }
+
+# 🏬 Stores route
+>>>>>>> 888684f4385f43d1cfb979ffeb9c6056a49eb16c
 @app.get("/stores", response_model=StoreResponse)
 def get_stores(
     search: Optional[str] = Query(None),
@@ -44,9 +56,10 @@ def get_stores(
         query = query.filter(MallStore.Category == category)
     if only_open:
         now = datetime.now().strftime("%I:%M %p")
-        # Using string comparison fallback for now
-        query = query.filter(MallStore.Opening_Hours <= now,
-                             MallStore.Closing_Hours >= now)
+        query = query.filter(
+            MallStore.Opening_Hours <= now,
+            MallStore.Closing_Hours >= now
+        )
     if passed_landmark:
         query = query.filter(MallStore.Store_Name > passed_landmark)
 

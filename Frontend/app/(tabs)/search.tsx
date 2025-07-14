@@ -1,42 +1,32 @@
-import React, { useState } from 'react';
-import { View, StyleSheet, ScrollView } from 'react-native';
+import React, { useState } from "react";
+import { ScrollView, StyleSheet, View } from "react-native";
 
-import SearchBar from '../../components/search-bar';
-import QuestionCard from '../../components/question-card';
-import StoreCard from '@/components/store-card';
-import ThemeToggle from '@/components/theme-toggle';
-import { getColors } from '@/constants/Colors';
-import { useTheme } from '@/providers/theme-provider';
+import StoreCard from "@/components/store-card";
+import QuestionCard from "@/components/question-card";
+import TopBar from "@/components/top-bar";
+import { getColors } from "@/constants/Colors";
+import { useTheme } from "@/providers/theme-provider";
 
 export default function Search() {
-  const [query, setQuery] = useState('');
+  const [query, setQuery] = useState("");
   const { theme } = useTheme();
   const colors = getColors(theme);
 
-  const dividerColor = theme === 'light' ? '#DDDDDD' : '#444444';
-
   return (
     <View style={[styles.container, { backgroundColor: colors.background }]}>
+      <TopBar
+        mode="search"
+        searchValue={query}
+        onChangeSearch={setQuery}
+        onSearchSubmit={() => console.log("Search:", query)}
+        onClearSearch={() => setQuery("")}
+      />
       <ScrollView contentContainerStyle={{ paddingBottom: 80 }}>
-        {/* 🔎 Search bar and toggle */}
-        <View style={[styles.searchWrapper, { backgroundColor: colors.tint }]}>
-          <SearchBar
-            value={query}
-            onChangeText={setQuery}
-            onSubmit={() => console.log('Search:', query)}
-            onClear={() => setQuery('')}
-          />
-          <ThemeToggle />
-        </View>
-
-        {/* 🔲 Top grey divider after orange area */}
-        <View style={{ height: 1, backgroundColor: dividerColor }} />
-
         {/* ❓ Question card */}
         <QuestionCard
           question="Have you passed KFC?"
-          onYes={() => console.log('User said YES')}
-          onNo={() => console.log('User said NO')}
+          onYes={() => console.log("User said YES")}
+          onNo={() => console.log("User said NO")}
         />
 
         {/* 🏬 Store cards */}
@@ -53,9 +43,6 @@ export default function Search() {
           floor="1"
         />
       </ScrollView>
-
-      {/* 🟧 Bottom orange line, fixed just above nav bar */}
-      <View style={{ height: 2, backgroundColor: '#FF7800' }} />
     </View>
   );
 }
@@ -63,13 +50,5 @@ export default function Search() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-  },
-  searchWrapper: {
-    paddingTop: 40,
-    paddingBottom: 10,
-    paddingHorizontal: 16,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
   },
 });

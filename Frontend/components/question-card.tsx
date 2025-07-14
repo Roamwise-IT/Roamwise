@@ -1,8 +1,9 @@
-import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
-import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
-import { useTheme } from '@/providers/theme-provider';
-import { getColors } from '@/constants/Colors';
+import { getColors } from "@/constants/Colors";
+import { Spacing } from "@/constants/Spacing";
+import { useTheme } from "@/providers/theme-provider";
+import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
+import React from "react";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
 type Props = {
   question: string;
@@ -15,15 +16,22 @@ export default function QuestionCard({ question, onYes, onNo }: Props) {
   const colors = getColors(theme);
 
   return (
-    <View style={[styles.card, { backgroundColor: colors.background, shadowColor: colors.text }]}>
+    <View
+      style={[
+        styles.card,
+        { backgroundColor: colors.card, shadowColor: colors.text },
+      ]}
+    >
       <View style={styles.row}>
         <MaterialCommunityIcons
           name="arrow-right-bold"
           size={20}
           color={colors.tint}
-          style={{ marginRight: 8 }}
+          style={styles.icon}
         />
-        <Text style={[styles.questionText, { color: colors.text }]}>{question}</Text>
+        <Text style={[styles.questionText, { color: colors.text }]}>
+          {question}
+        </Text>
         <View style={styles.buttonRow}>
           <TouchableOpacity onPress={onYes} style={styles.iconBtn}>
             <Ionicons name="checkmark-circle" size={32} color="green" />
@@ -39,9 +47,9 @@ export default function QuestionCard({ question, onYes, onNo }: Props) {
 
 const styles = StyleSheet.create({
   card: {
-    padding: 16,
-    marginTop: 12,
-    marginHorizontal: 16,
+    padding: Spacing.huge,
+    marginTop: Spacing.xl,
+    marginHorizontal: Spacing.xl,
     borderRadius: 10,
     shadowOpacity: 0.1,
     shadowOffset: { width: 0, height: 2 },
@@ -49,20 +57,23 @@ const styles = StyleSheet.create({
     elevation: 3,
   },
   row: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  icon: {
+    marginRight: Spacing.md,
   },
   questionText: {
     fontSize: 16,
-    fontWeight: '600',
+    fontWeight: "600",
   },
   buttonRow: {
-    marginLeft: 'auto',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    width: '30%',
+    marginLeft: "auto",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    width: "30%",
   },
   iconBtn: {
-    padding: 5,
+    padding: Spacing.sm,
   },
 });
