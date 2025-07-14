@@ -24,6 +24,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+# Get all stores 
 @app.get("/stores", response_model=StoreResponse)
 def get_stores(
     search: Optional[str] = Query(None),
