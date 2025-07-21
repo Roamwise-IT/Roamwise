@@ -68,7 +68,16 @@ Pull requests are welcome! For major changes, please open an issue first to disc
 
 ## 📄 License
 
-This project is licensed under the MIT License.
+All Rights Reserved
+
+Copyright © RoamWise 2025
+
+This source code and all associated files are the exclusive property of RoamWise.
+
+No permission is granted to use, copy, modify, merge, publish, distribute, sublicense, or sell this software or its documentation, except to contributors explicitly authorized by RoamWise.
+
+Unauthorized use, in whole or in part, is strictly prohibited and may result in legal action.
+
 
 ---
 
