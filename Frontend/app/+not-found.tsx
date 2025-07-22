@@ -1,36 +1,19 @@
-import { getColors } from "@/constants/Colors";
-import { Spacing } from "@/constants/Spacing";
-import { useTheme } from "@/providers/theme-provider";
-import { Link, Stack } from "expo-router";
-import React from "react";
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { Link, Stack } from 'expo-router';
+import { StyleSheet } from 'react-native';
+
+import { ThemedText } from '@/components/ThemedText';
+import { ThemedView } from '@/components/ThemedView';
 
 export default function NotFoundScreen() {
-  const { theme } = useTheme();
-  const colors = getColors(theme);
-
   return (
     <>
-      <Stack.Screen options={{ title: "Oops! Page Not Found" }} />
-      <View style={[styles.container, { backgroundColor: colors.background }]}>
-        <Text style={[styles.title, { color: colors.text }]}>
-          404 — Page Not Found
-        </Text>
-        <Text style={[styles.message, { color: colors.subtext }]}>
-          Sorry, the page you’re looking for doesn’t exist or has been moved.
-        </Text>
-        <Link href="/" style={[styles.link, { color: colors.tint }]}>
-          ← Go back to Home
+      <Stack.Screen options={{ title: 'Oops!' }} />
+      <ThemedView style={styles.container}>
+        <ThemedText type="title">This screen does not exist.</ThemedText>
+        <Link href="/" style={styles.link}>
+          <ThemedText type="link">Go to home screen!</ThemedText>
         </Link>
-        <TouchableOpacity
-          onPress={() => window.history.back()}
-          style={[styles.backButton, { borderColor: colors.tint }]}
-        >
-          <Text style={[styles.backButtonText, { color: colors.tint }]}>
-            Go Back
-          </Text>
-        </TouchableOpacity>
-      </View>
+      </ThemedView>
     </>
   );
 }
@@ -38,33 +21,12 @@ export default function NotFoundScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    paddingHorizontal: Spacing.xl,
-  },
-  title: {
-    fontSize: 32,
-    fontWeight: "bold",
-    marginBottom: Spacing.md,
-  },
-  message: {
-    fontSize: 16,
-    textAlign: "center",
-    marginBottom: Spacing.lg,
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 20,
   },
   link: {
-    fontSize: 18,
-    textDecorationLine: "underline",
-    marginBottom: Spacing.lg,
-  },
-  backButton: {
-    borderWidth: 1.5,
-    borderRadius: 8,
-    paddingVertical: Spacing.sm,
-    paddingHorizontal: Spacing.xl,
-  },
-  backButtonText: {
-    fontSize: 16,
-    fontWeight: "600",
+    marginTop: 15,
+    paddingVertical: 15,
   },
 });
