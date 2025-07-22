@@ -24,9 +24,6 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-<<<<<<< HEAD
-# Get all stores 
-=======
 # ✅ Root route
 @app.get("/")
 def read_root():
@@ -36,7 +33,6 @@ def read_root():
     }
 
 # 🏬 Stores route
->>>>>>> 888684f4385f43d1cfb979ffeb9c6056a49eb16c
 @app.get("/stores", response_model=StoreResponse)
 def get_stores(
     search: Optional[str] = Query(None),
