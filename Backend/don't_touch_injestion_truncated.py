@@ -4,7 +4,7 @@ from models import Base
 from db import SQLALCHEMY_DATABASE_URL
 
 # === Step 1: Load CSV ===
-csv_file = "./malls/MallWinnieMandelaCresent - WinnieMandelaCresent.csv"
+csv_file = "./malls/mall_data.csv"
 df = pd.read_csv(csv_file, dtype={"Contact_Number": str})
 
 # === Step 2: Connect to Supabase DB ===
