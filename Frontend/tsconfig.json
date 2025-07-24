@@ -1,21 +1,28 @@
 {
   "compilerOptions": {
-    "target": "ES6",
-    "module": "Node16",
-    "jsx": "react-native",
-    "moduleResolution": "node16",
-    "allowSyntheticDefaultImports": true,
+    "target": "esnext",
+    "module": "esnext",
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
+    "allowJs": true,
+    "skipLibCheck": true,
     "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
     "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "noEmit": true,
+    "isolatedModules": true,
+    "moduleResolution": "bundler",   // <-- CHANGED for Expo/Metro
+    "resolveJsonModule": true,
+    "jsx": "react-native",
     "paths": {
       "@/*": [
         "./*"
       ]
-    },
-    "types": [
-      "react",
-      "react-native"
-    ]
+    }
   },
   "include": [
     "**/*.ts",
