@@ -1,34 +1,62 @@
 {
   "compilerOptions": {
+    // Target the latest ECMAScript features
     "target": "esnext",
+
+    // Use modern ES module syntax
     "module": "esnext",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
+
+    // Include modern JS features and DOM types
+    "lib": ["dom", "dom.iterable", "esnext"],
+
+    // Allow importing JS files
     "allowJs": true,
+
+    // Skip checking declaration files (.d.ts)
     "skipLibCheck": true,
+
+    // Allow default imports from modules with no default export
     "esModuleInterop": true,
+
+    // Allow synthetic default imports (useful for compatibility)
     "allowSyntheticDefaultImports": true,
+
+    // Enable all strict type-checking options
     "strict": true,
+
+    // Ensure file name casing consistency across the project
     "forceConsistentCasingInFileNames": true,
+
+    // Don't output compiled JS — we use Expo/Babel for bundling
     "noEmit": true,
+
+    // Treat each file as its own module (required for React Native + Babel)
     "isolatedModules": true,
-    "moduleResolution": "bundler",   // <-- CHANGED for Expo/Metro
+
+    // Use the new Metro bundler-aware module resolution
+    "moduleResolution": "bundler", // ✅ Required for Expo + TypeScript
+
+    // Allow importing JSON files as modules
     "resolveJsonModule": true,
+
+    // Use the React Native JSX transform
     "jsx": "react-native",
+
+    // ✅ Path aliases (like @/components, @/assets, etc.)
+    // This makes imports like "@/components/Button" work
     "paths": {
-      "@/*": [
-        "./*"
-      ]
+      "@/*": ["./*"]
     }
   },
+
+  // Files to include in compilation
   "include": [
-    "**/*.ts",
-    "**/*.tsx",
-    ".expo/types/**/*.ts",
-    "expo-env.d.ts"
+    "**/*.ts", // All TypeScript files
+    "**/*.tsx", // All TSX (React) files
+    ".expo/types/**/*.ts", // Expo-generated type files
+    "expo-env.d.ts" // Custom global declarations (if used)
   ],
+
+  // Extend Expo's base TypeScript config
   "extends": "expo/tsconfig.base"
 }
