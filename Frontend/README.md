@@ -1,50 +1,89 @@
-# Welcome to your Expo app 👋
+# Roamwise Frontend
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+This is the frontend for the **Roamwise** app — a location-aware platform designed to help users navigate indoor spaces. It is built using **React Native** with **Expo** and follows a modular, file-based routing architecture.
 
-## Get started
+---
 
-1. Install dependencies
+## 🧰 Installation
 
-   ```bash
-   npm install
-   ```
+Make sure you have [Node.js](https://nodejs.org/) installed (v16 or higher is recommended).
 
-2. Start the app
+Install dependencies:
 
-   ```bash
-   npx expo start
-   ```
+```bash
+npm install
+```
 
-In the output, you'll find options to open the app in a
+This sets up everything needed to run and build the app.
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+---
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+## 🚀 Running the App
 
-## Get a fresh project
+Start the development server:
 
-When you're ready, run:
+```bash
+npm start
+```
+
+Once it launches:
+
+- You can run the app on an Android/iOS emulator or physical device.
+- You can scan the QR code using the **Expo Go** app on your phone.
+- You'll also get access to the Expo Developer Tools UI in your browser.
+
+---
+
+## 🔁 Resetting the Project
+
+To reset the project to a clean state (removing boilerplate):
 
 ```bash
 npm run reset-project
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+`NOTE THIS WILL ONLY BE DONE AT THE BEGINNING OF THE PROJECT. DO NOT RUN IT AGAIN IF THE PROJECT IS ALREADY IN DEV`
 
-## Learn more
+This will:
+- Move the existing starter code to `app-example/`
+- Create a blank `app/` directory to start fresh
 
-To learn more about developing your project with Expo, look at the following resources:
+---
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+## 🧪 Testing & Debugging
 
-## Join the community
+You can debug the app directly in your terminal, emulator, or through browser DevTools. Use:
 
-Join our community of developers creating universal apps.
+- `console.log()` for basic debugging
+- `expo-dev-client` or `React Native Debugger` for more advanced inspection
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+---
+
+## 🧱 Project Structure
+
+Here's a general overview:
+
+```
+app/             # Screens and route-based navigation
+components/      # Reusable UI components
+constants/       # Shared colors, fonts, sizes
+assets/          # Static files (images, fonts)
+utils/           # Utility functions
+App.tsx          # Main entry point of the app
+```
+
+The app uses **file-based routing**. Each file or folder inside `app/` becomes a route in the app.
+
+---
+
+## 🛠 Development Tips
+
+- Use [VS Code](https://code.visualstudio.com/) with the **React Native Tools** extension. or whatever text editor/IDE works for you.
+- Stick to atomic component patterns: components should be small, modular, and reusable.
+- Theme/styling is centralized in `constants/`. Stick to defined colors and font sizes.
+
+---
+
+## 📬 Contact
+
+For contributions or questions, refer to the main Roamwise repo or open an issue.
