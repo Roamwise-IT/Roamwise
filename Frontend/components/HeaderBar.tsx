@@ -3,15 +3,16 @@ import { View, Text, StyleSheet, Image } from "react-native";
 
 export default function HeaderBar({ mallName }: { mallName: string }) {
   return (
-    <View>
-      {/* Top red bar with logo and title */}
+    // Top red bar with logo and title
+    <View className="">
       <View style={styles.topBar}>
         <Image
-          source={require("../../assets/images/image.png")}
+          source={require("../../assets/images/roamwise.png")}
           style={styles.logo}
         />
         <Text style={styles.logoText}>ROAMWISE</Text>
       </View>
+
       {/* Mall name strip */}
       <View style={styles.mallStrip}>
         <Text style={styles.mallText}>{mallName}</Text>
@@ -24,9 +25,9 @@ const styles = StyleSheet.create({
   topBar: {
     flexDirection: "row",
     alignItems: "center",
-    justifyContent: "center",      // Center logo + text horizontally
+    justifyContent: "center", // Center logo + text horizontally
     backgroundColor: "#B00000",
-    paddingVertical: 16,           // Slightly taller for visual balance
+    paddingVertical: 16, // Slightly taller for visual balance
     paddingHorizontal: 16,
   },
   logo: {
@@ -43,8 +44,8 @@ const styles = StyleSheet.create({
   mallStrip: {
     backgroundColor: "#1a1a1a",
     paddingVertical: 10,
-    alignItems: "center",          // Center the mall name
-    borderBottomColor: "#B00000",  // Thin red underline for style
+    alignItems: "center", // Center the mall name
+    borderBottomColor: "#B00000", // Thin red underline for style
     borderBottomWidth: 2,
   },
   mallText: {
