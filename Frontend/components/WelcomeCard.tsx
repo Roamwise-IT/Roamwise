@@ -20,7 +20,7 @@ export default function WelcomeCard({
         Your favourite mall: {favouriteMall}
       </Text>
       <Image
-        source={require("../../assets/images/roamwise.png")}
+        source={require("@/assets/images/roamwise.png")}
         style={{ width: 60, height: 60, borderRadius: 30, marginTop: 10 }}
       />
     </View>

@@ -4,7 +4,7 @@
     "slug": "Frontend",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/roamwise.png",
+    "icon": "assets/images/roamwise.png",
     "scheme": "frontend",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
@@ -13,7 +13,7 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/images/roamwise.png",
+        "foregroundImage": "assets/images/roamwise.png",
         "backgroundColor": "#000000"
       },
       "edgeToEdgeEnabled": true
@@ -21,14 +21,14 @@
     "web": {
       "bundler": "metro",
       "output": "static",
-      "favicon": "./assets/images/roamwise.png"
+      "favicon": "assets/images/roamwise.png"
     },
     "plugins": [
       "expo-router",
       [
         "expo-splash-screen",
         {
-          "image": "./assets/images/roamwise.png",
+          "image": "assets/images/roamwise.png",
           "imageWidth": 200,
           "resizeMode": "contain",
           "backgroundColor": "#000000"

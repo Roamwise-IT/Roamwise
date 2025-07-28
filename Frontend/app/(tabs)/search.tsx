@@ -1,9 +1,9 @@
 import React from "react";
 import { ScrollView } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import TopSearchBar from "../../components/ui/TopSearchBar";
-import Question from "../../components/ui/Question";
-import StoreCard from "../../components/ui/StoreCard";
+import TopSearchBar from "@/components/TopSearchBar";
+import Question from "@/components/Question";
+import StoreCard from "@/components/StoreCard";
 
 export default function SearchScreen() {
   return (
