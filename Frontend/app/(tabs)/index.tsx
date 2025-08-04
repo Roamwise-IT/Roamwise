@@ -23,7 +23,7 @@ export default function HomeScreen() {
         {malls.map((mall) => (
           <TouchableOpacity
             key={mall.id}
-            onPress={() => router.push(`/mall/${mall.id}`)}
+            onPress={() => router.push(`/mall/${mall.mall_id}`)}
             style={styles.card}
           >
             <Text style={styles.name}>{mall.name}</Text>

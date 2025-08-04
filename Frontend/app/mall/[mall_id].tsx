@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { View, ScrollView, TextInput, StyleSheet } from "react-native";
+import { View, ScrollView, TextInput, StyleSheet, Text } from "react-native";
 import { useLocalSearchParams } from "expo-router";
 import axios from "axios";
 import StoreCard from "../../components/ui/StoreCard";
@@ -8,20 +8,36 @@ export default function MallDetailsScreen() {
   const { mall_id } = useLocalSearchParams();
   const [stores, setStores] = useState([]);
   const [search, setSearch] = useState("");
+  const [error, setError] = useState("");
 
   useEffect(() => {
-    axios.get(`http://127.0.0.1:8000/api/stores/by-mall/${mall_id}`)
-      .then(res => setStores(res.data))
-      .catch(err => console.error("Error fetching stores:", err));
+    if (!mall_id) {
+      console.warn("❗ mall_id is missing from route params");
+      setError("Mall ID missing. Cannot fetch stores.");
+      return;
+    }
+
+    console.log("📦 mall_id received:", mall_id);
+
+    axios
+      .get(`http://192.168.3.37:8000/api/stores/api/malls/${mall_id}/stores`)
+      .then((res) => {
+        console.log("✅ Stores fetched:", res.data);
+        setStores(res.data);
+        setError("");
+      })
+      .catch((err) => {
+        console.error("❌ Error fetching stores:", err);
+        setError("Failed to fetch stores.");
+      });
   }, [mall_id]);
 
-  const filteredStores = stores.filter(store =>
+  const filteredStores = stores.filter((store) =>
     store.name.toLowerCase().includes(search.toLowerCase())
   );
 
   return (
     <View style={styles.container}>
-      {/* 🔍 Search Bar at Top */}
       <TextInput
         style={styles.searchBar}
         placeholder="Search stores..."
@@ -30,11 +46,19 @@ export default function MallDetailsScreen() {
         onChangeText={setSearch}
       />
 
-      <ScrollView contentContainerStyle={{ padding: 15 }}>
-        {filteredStores.map((store) => (
-          <StoreCard key={store.store_id} store={store} />
-        ))}
-      </ScrollView>
+      {error ? (
+        <Text style={styles.error}>{error}</Text>
+      ) : (
+        <ScrollView contentContainerStyle={{ padding: 15 }}>
+          {filteredStores.length > 0 ? (
+            filteredStores.map((store) => (
+              <StoreCard key={store.store_id} store={store} />
+            ))
+          ) : (
+            <Text style={styles.noStores}>No stores found.</Text>
+          )}
+        </ScrollView>
+      )}
     </View>
   );
 }
@@ -51,6 +75,18 @@ const styles = StyleSheet.create({
     margin: 15,
     borderRadius: 8,
     color: "#fff",
+    fontSize: 16,
+  },
+  error: {
+    color: "red",
+    textAlign: "center",
+    marginTop: 30,
+    fontSize: 16,
+  },
+  noStores: {
+    color: "#aaa",
+    textAlign: "center",
+    marginTop: 30,
     fontSize: 16,
   },
 });
