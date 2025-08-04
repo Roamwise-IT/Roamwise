@@ -11,6 +11,7 @@ import {
 } from "react-native";
 import { useRouter } from "expo-router";
 import axios from "axios";
+import { SafeAreaView } from "react-native-safe-area-context"; // <-- Import SafeAreaView
 
 interface Mall {
   mall_id: string;
@@ -35,39 +36,44 @@ export default function SearchScreen() {
   );
 
   return (
-    <KeyboardAvoidingView
-      behavior={Platform.OS === "ios" ? "padding" : undefined}
-      style={styles.wrapper}
-    >
-      {/* 🔴 Search bar at top */}
-      <View style={styles.searchContainer}>
-        <TextInput
-          style={styles.searchInput}
-          placeholder="Search malls..."
-          placeholderTextColor="#fff"
-          value={search}
-          onChangeText={setSearch}
-        />
-      </View>
+    <SafeAreaView style={styles.safeArea}> 
+      <KeyboardAvoidingView
+        behavior={Platform.OS === "ios" ? "padding" : undefined}
+        style={styles.wrapper}
+      >
+        {/* 🔴 Search bar at top */}
+        <View style={styles.searchContainer}>
+          <TextInput
+            style={styles.searchInput}
+            placeholder="Search malls..."
+            placeholderTextColor="#fff"
+            value={search}
+            onChangeText={setSearch}
+          />
+        </View>
 
-      <ScrollView contentContainerStyle={styles.scrollContainer}>
-
-        {filtered.map((mall) => (
-          <Pressable
-            key={mall.mall_id}
-            onPress={() => router.push(`/mall/${mall.mall_id}`)}
-            style={styles.mallCard}
-          >
-            <Text style={styles.mallName}>{mall.name}</Text>
-            <Text style={styles.mallDesc}>{mall.description}</Text>
-          </Pressable>
-        ))}
-      </ScrollView>
-    </KeyboardAvoidingView>
+        <ScrollView contentContainerStyle={styles.scrollContainer}>
+          {filtered.map((mall) => (
+            <Pressable
+              key={mall.mall_id}
+              onPress={() => router.push(`/mall/${mall.mall_id}`)}
+              style={styles.mallCard}
+            >
+              <Text style={styles.mallName}>{mall.name}</Text>
+              <Text style={styles.mallDesc}>{mall.description}</Text>
+            </Pressable>
+          ))}
+        </ScrollView>
+      </KeyboardAvoidingView>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
+  safeArea: {
+    flex: 1,
+    backgroundColor: "#000", // Ensure background applies to SafeArea too
+  },
   wrapper: {
     flex: 1,
     backgroundColor: "#000",
@@ -75,7 +81,7 @@ const styles = StyleSheet.create({
   searchContainer: {
     backgroundColor: "#B00000",
     paddingHorizontal: 15,
-    paddingTop: Platform.OS === "ios" ? 60 : 20,
+    paddingTop: Platform.OS === "ios" ? 10 : 20, // SafeArea handles notch spacing now
     paddingBottom: 12,
   },
   searchInput: {
@@ -88,12 +94,6 @@ const styles = StyleSheet.create({
   },
   scrollContainer: {
     padding: 15,
-  },
-  title: {
-    fontSize: 20,
-    color: "#fff",
-    fontWeight: "bold",
-    marginBottom: 10,
   },
   mallCard: {
     backgroundColor: "#222",
