@@ -27,6 +27,13 @@ SUPABASE_DB_URL=postgresql://user:password@host:5432/dbname
 docker-compose up --build
 ```
 
+### 3.1 After Initial Buil
+
+```bash
+docker-compose up
+```
+
+
 You should see logs showing that FastAPI has started on:
 
 ```
