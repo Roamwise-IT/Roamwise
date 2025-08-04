@@ -1,150 +1,155 @@
-# 🚀 RoamWise Backend
+# RoamWise Backend
 
-This is the backend for the RoamWise platform, built using **FastAPI** and connected to a **Supabase PostgreSQL** database. It supports multi-tenant shopping mall data management, including malls, stores, events, and facilities.
-
----
-
-## 📁 Project Structure
-
-```
-Backend/
-├── main.py               # FastAPI entry point
-├── db.py                 # DB connection using SQLAlchemy
-├── models/               # SQLAlchemy models
-├── schemas/              # Pydantic schemas
-├── crud/                 # Business logic functions
-├── routes/               # API route definitions
-├── .env                  # (excluded from Git) DB credentials
-└── requirements.txt      # Python dependencies
-```
+This repository contains the backend for the **RoamWise** application. It uses **FastAPI**, **SQLAlchemy**, and connects to a **Supabase PostgreSQL** database.
 
 ---
 
-## ✅ Prerequisites
+## 🐳 Running with Docker
 
-- Python 3.10+
-- Supabase project with Postgres and PostGIS enabled
-- `.env` file configured with your DB URL
-
----
-
-## 🛠️ Installation
-
-1. **Clone the repository**
+### 1. Clone the repository
 
 ```bash
-git clone https://github.com/Roamwise-IT/roamwise.git
+git clone https://github.com/<your-org>/roamwise.git
 cd roamwise/Backend
 ```
 
-2. **Create virtual environment**
+### 2. Add `.env`
+
+Create a `.env` file in the **root** of the project and copy in your Supabase credentials:
+
+```
+SUPABASE_DB_URL=postgresql://user:password@host:5432/dbname
+```
+
+### 3. Run the backend
 
 ```bash
-python -m venv venv
-source venv/bin/activate       # Linux/macOS
-venv\Scripts\activate        # Windows
+docker-compose up --build
 ```
 
-3. **Install dependencies**
+You should see logs showing that FastAPI has started on:
+
+```
+http://0.0.0.0:8000
+```
+
+But use this instead in your browser:
+
+```
+http://localhost:8000/docs
+```
+
+This will open Swagger UI with all API endpoints.
+
+---
+
+## 📱 Mobile Device & Team Testing
+
+To test the backend API on a **physical device (phone)**:
+
+### ✅ OPTION 1: Same Wi-Fi network (local IP)
+
+1. Run `ipconfig` on Windows or `ifconfig` on macOS/Linux to get your IP.
+
+2. Find something like:
+
+```
+IPv4 Address: 192.168.1.5
+```
+
+3. Update your **frontend Axios base URL**:
+
+(there, many files where it is refrenced to find and replace like the example)
+```ts
+const api = axios.create({
+  baseURL: "http://192.168.1.5:8000/api", // Replace with your actual IP
+});
+```
+
+4. Make sure the backend container is running.
+
+5. Ensure your firewall allows incoming requests to port 8000.
+
+6. Connect your phone to the same Wi-Fi and run the Expo app.
+
+---
+
+### 🌍 OPTION 2(TO BE DISCUSSED)(via `ngrok`)
+
+Install `ngrok`: https://ngrok.com/download
 
 ```bash
-pip install -r requirements.txt
+ngrok http 8000
 ```
 
-4. **Create `.env` file**
+This will give you a public HTTPS URL like:
 
-Create a file named `.env` in the `Backend/` directory with the following content:
-
-```env
-SUPABASE_DB_URL=postgresql://<encoded-username>:<encoded-password>@<host>:5432/postgres
+```
+https://abcd1234.ngrok.io
 ```
 
-**Note:** Do not commit `.env` to version control.
+Update your frontend Axios config to:
+
+```ts
+const api = axios.create({
+  baseURL: "https://abcd1234.ngrok.io/api",
+});
+```
+
+Your teammates can now connect from anywhere without needing to run the backend.
 
 ---
 
-## ▶️ Running the Server (Dev Mode)
+## 🧪 Tech Stack
+
+- FastAPI
+- SQLAlchemy
+- Supabase PostgreSQL
+- Docker & Docker Compose
+- Axios for API communication
+- React Native (Expo) frontend
+
+---
+
+## 🛠 Helpful Commands
+
+### Rebuild Docker Image
 
 ```bash
-uvicorn main:app --reload
+docker-compose up --build
 ```
 
-Visit the following URLs to test the API:
+### Stop the backend
 
-- Swagger UI: [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs)
-- Redoc: [http://127.0.0.1:8000/redoc](http://127.0.0.1:8000/redoc)
-
----
-
-## 🔄 API Endpoints Available
-
-| Method | Endpoint       | Description                  |
-|--------|----------------|------------------------------|
-| GET    | `/api/malls`   | List all malls               |
-| POST   | `/api/malls`   | Create a new mall            |
-|        | ...            | (More endpoints coming soon) |
+```bash
+docker-compose down
+```
 
 ---
 
-## ⚙️ Tech Stack
+## 📂 Project Structure
 
-- **FastAPI** – High-performance Python web framework
-- **Supabase** – Postgres DB with PostGIS and JSONB support
-- **SQLAlchemy** – ORM for DB interactions
-- **Pydantic** – Data validation and schema generation
-- **Uvicorn** – ASGI server for local development
+```
+Backend/
+  ├── db.py
+  ├── main.py
+  ├── models/
+  ├── routes/
+  ├── schemas/
+  ├── Dockerfile
+  ├── requirements.txt
 
----
-
-## 🧪 Testing the Setup
-
-1. Start the server:
-   ```bash
-   uvicorn main:app --reload
-   ```
-
-2. Open your browser at:
-   - [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs) for Swagger
-   - [http://127.0.0.1:8000/redoc](http://127.0.0.1:8000/redoc) for ReDoc
-
-3. Use the POST endpoint to create a mall and verify with GET.
+docker-compose.yml
+.env
+```
 
 ---
 
-## 📌 Notes
+## ✅ Ready for PR
 
-- PostGIS must be enabled in Supabase:
-  ```sql
-  create extension if not exists postgis;
-  ```
-- Supabase credentials in `.env` should be URL-encoded.
-- Example encoding tool: https://www.urlencoder.io/
+Make sure your teammates:
+- Pull latest changes
+- Have Docker Desktop installed
+- Run `docker-compose up --build`
+- Use your IP or `ngrok` to test from mobile or remote
 
----
-
-## 📬 Contributing
-
-1. Create a new branch:
-   ```bash
-   git checkout -b feat/your-feature-name
-   ```
-2. Push your branch:
-   ```bash
-   git push origin feat/your-feature-name
-   ```
-3. Open a pull request on GitHub.
-
----
-
-## 🧠 Future Enhancements
-
-- Add endpoints for stores, events, and facilities
-- Supabase Auth and admin role integration
-- Mall discovery via geolocation queries
-- Docker-based deployment or cloud hosting (Render, Fly.io)
-
----
-
-## 👨‍💻 Author
-
-Developed and maintained by the RoamWise Engineering Team.

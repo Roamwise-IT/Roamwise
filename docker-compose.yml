@@ -1,0 +1,17 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: ./Backend
+      dockerfile: Dockerfile
+    container_name: roamwise-backend
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./Backend:/app
+    env_file:
+      - ./Backend/.env
+    environment:
+      - PYTHONUNBUFFERED=1
+    restart: always

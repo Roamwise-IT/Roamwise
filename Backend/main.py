@@ -7,8 +7,12 @@ from fastapi.middleware.cors import CORSMiddleware
 Base.metadata.create_all(bind=engine)
 
 app = FastAPI(
-    title="Roamwise API",
-    docs_url="/",  # This will make Swagger the default documentation
+    title="RoamWise Backend",
+    description="API for RoamWise app",
+    version="1.0.0",
+    docs_url="/docs",            # <-- This must be set
+    redoc_url="/redoc",          # Optional
+    openapi_url="/openapi.json"  # This must be set if you want docs to work
 )
 
 app.add_middleware(
