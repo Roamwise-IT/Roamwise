@@ -32,7 +32,7 @@ export const fontWeights = {
   bold: "700",
 };
 //  LINE HEIGHTS 
-// Adjust for vertical rhythm (especially on mobile
+// Adjust for vertical rhythm (especially on mobile)
 
 export const lineHeights = {
   tight: 16,
