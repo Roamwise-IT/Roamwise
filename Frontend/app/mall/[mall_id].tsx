@@ -1,11 +1,18 @@
 import React, { useEffect, useState } from "react";
-import { View, ScrollView, TextInput, StyleSheet, Text } from "react-native";
+import {
+  View,
+  ScrollView,
+  TextInput,
+  StyleSheet,
+  Text,
+} from "react-native";
 import { useLocalSearchParams } from "expo-router";
 import Constants from "expo-constants";
 import axios from "axios";
 import StoreCard from "../../components/ui/StoreCard";
 
-const API_BASE_URL = Constants.expoConfig?.extra?.apiBaseUrl;
+// 🌐 Base URL from app.config.js
+const API_BASE_URL = Constants.expoConfig?.extra?.API_BASE_URL;
 
 export default function MallDetailsScreen() {
   const { mall_id } = useLocalSearchParams();
@@ -16,14 +23,20 @@ export default function MallDetailsScreen() {
   useEffect(() => {
     if (!mall_id) {
       console.warn("❗ mall_id is missing from route params");
-      setError("Mall ID missing. Cannot fetch stores.");
+      setError("Mall ID is missing. Cannot fetch stores.");
+      return;
+    }
+
+    if (!API_BASE_URL) {
+      console.error("❌ API_BASE_URL is not set in Constants");
+      setError("Internal error: API URL not configured.");
       return;
     }
 
     console.log("📦 mall_id received:", mall_id);
 
     axios
-      .get(`${API_BASE_URL}/api/stores/api/malls/${mall_id}/stores`)
+      .get(`${API_BASE_URL}/api/malls/${mall_id}/stores`)
       .then((res) => {
         console.log("✅ Stores fetched:", res.data);
         setStores(res.data);

@@ -1,7 +1,8 @@
 import 'dotenv/config';
 
-export default {
-  expo: {
+export default ({ config }) => {
+  return {
+    ...config,
     name: "Frontend",
     slug: "Frontend",
     version: "1.0.0",
@@ -41,7 +42,8 @@ export default {
       typedRoutes: true
     },
     extra: {
+      ...config.extra,
       API_BASE_URL: process.env.API_BASE_URL
     }
-  }
+  };
 };

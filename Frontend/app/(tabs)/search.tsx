@@ -20,7 +20,7 @@ interface Mall {
   description: string;
 }
 
-const API_BASE_URL = Constants.expoConfig?.extra?.apiBaseUrl;
+const API_BASE_URL = Constants.expoConfig?.extra?.API_BASE_URL;
 
 export default function SearchScreen() {
   const [malls, setMalls] = useState<Mall[]>([]);
@@ -28,6 +28,11 @@ export default function SearchScreen() {
   const router = useRouter();
 
   useEffect(() => {
+    if (!API_BASE_URL) {
+      console.error("❌ API_BASE_URL is not defined in app config.");
+      return;
+    }
+
     axios
       .get(`${API_BASE_URL}/api/malls`)
       .then((res) => setMalls(res.data))
@@ -56,16 +61,20 @@ export default function SearchScreen() {
         </View>
 
         <ScrollView contentContainerStyle={styles.scrollContainer}>
-          {filtered.map((mall) => (
-            <Pressable
-              key={mall.mall_id}
-              onPress={() => router.push(`/mall/${mall.mall_id}`)}
-              style={styles.mallCard}
-            >
-              <Text style={styles.mallName}>{mall.name}</Text>
-              <Text style={styles.mallDesc}>{mall.description}</Text>
-            </Pressable>
-          ))}
+          {filtered.length > 0 ? (
+            filtered.map((mall) => (
+              <Pressable
+                key={mall.mall_id}
+                onPress={() => router.push(`/mall/${mall.mall_id}`)}
+                style={styles.mallCard}
+              >
+                <Text style={styles.mallName}>{mall.name}</Text>
+                <Text style={styles.mallDesc}>{mall.description}</Text>
+              </Pressable>
+            ))
+          ) : (
+            <Text style={styles.noResults}>No malls found.</Text>
+          )}
         </ScrollView>
       </KeyboardAvoidingView>
     </SafeAreaView>
@@ -113,5 +122,11 @@ const styles = StyleSheet.create({
     color: "#ccc",
     fontSize: 14,
     marginTop: 4,
+  },
+  noResults: {
+    color: "#aaa",
+    fontSize: 16,
+    textAlign: "center",
+    marginTop: 40,
   },
 });

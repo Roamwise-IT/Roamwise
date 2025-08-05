@@ -1,41 +1,66 @@
 import React, { useEffect, useState } from "react";
-import { ScrollView, Text, TouchableOpacity, View, StyleSheet } from "react-native";
+import {
+  ScrollView,
+  Text,
+  TouchableOpacity,
+  View,
+  StyleSheet,
+} from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import HeaderBar from "../../components/ui/HeaderBar";
 import { useRouter } from "expo-router";
 import Constants from "expo-constants";
 import axios from "axios";
 
-const API_BASE_URL = Constants.expoConfig?.extra?.apiBaseUrl;
+// 🌐 Use API base URL from config
+const API_BASE_URL = Constants.expoConfig?.extra?.API_BASE_URL;
 
 export default function HomeScreen() {
   const router = useRouter();
   const [malls, setMalls] = useState([]);
+  const [error, setError] = useState("");
 
   useEffect(() => {
+    if (!API_BASE_URL) {
+      console.error("❌ API_BASE_URL not set in app config.");
+      setError("Missing API configuration.");
+      return;
+    }
+
     axios
       .get(`${API_BASE_URL}/api/malls`)
-      .then((res) => setMalls(res.data))
-      .catch((err) => console.error("Failed to fetch malls:", err));
+      .then((res) => {
+        setMalls(res.data);
+        setError("");
+      })
+      .catch((err) => {
+        console.error("❌ Failed to fetch malls:", err);
+        setError("Failed to fetch malls.");
+      });
   }, []);
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "#000" }}>
       <HeaderBar mallName="Explore Malls" />
-      <ScrollView style={{ padding: 15 }}>
-        {malls.map((mall) => (
-          <TouchableOpacity
-            key={mall.id}
-            onPress={() => router.push(`/mall/${mall.mall_id}`)}
-            style={styles.card}
-          >
-            <Text style={styles.name}>{mall.name}</Text>
-            <Text style={styles.details}>📍 {mall.location}</Text>
-            <Text style={styles.details}>🏪 Current Mall: {mall.name}</Text>
-            <Text style={styles.details}>🛍️ Description: {mall.description}</Text>
-          </TouchableOpacity>
-        ))}
-      </ScrollView>
+
+      {error ? (
+        <Text style={styles.error}>{error}</Text>
+      ) : (
+        <ScrollView style={{ padding: 15 }}>
+          {malls.map((mall) => (
+            <TouchableOpacity
+              key={mall.mall_id}
+              onPress={() => router.push(`/mall/${mall.mall_id}`)}
+              style={styles.card}
+            >
+              <Text style={styles.name}>{mall.name}</Text>
+              <Text style={styles.details}>📍 {mall.location}</Text>
+              <Text style={styles.details}>🏪 Current Mall: {mall.name}</Text>
+              <Text style={styles.details}>🛍️ Description: {mall.description}</Text>
+            </TouchableOpacity>
+          ))}
+        </ScrollView>
+      )}
     </SafeAreaView>
   );
 }
@@ -56,5 +81,11 @@ const styles = StyleSheet.create({
     color: "#aaa",
     fontSize: 14,
     marginTop: 4,
+  },
+  error: {
+    color: "red",
+    textAlign: "center",
+    fontSize: 16,
+    marginTop: 30,
   },
 });
