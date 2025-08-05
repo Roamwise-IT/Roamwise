@@ -28,7 +28,8 @@ export default function HomeScreen() {
           >
             <Text style={styles.name}>{mall.name}</Text>
             <Text style={styles.details}>📍 {mall.location}</Text>
-            <Text style={styles.details}>🛍️ Stores: {mall.store_count}</Text>
+            <Text style={styles.details}>🏪 Current Mall : {mall.name}</Text>
+            <Text style={styles.details}>🛍️ Stores: {mall.description}</Text>
           </TouchableOpacity>
         ))}
       </ScrollView>
