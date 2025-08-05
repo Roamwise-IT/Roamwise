@@ -1,13 +1,17 @@
 import React from "react";
 import { View, Text, StyleSheet, Image } from "react-native";
+import { colors, darkTheme, spacing, margins, padding, borderRadius, borderWidth, sizes, fontFamilies, fontSizes, fontWeights, lineHeights } from "../../constraints";
+
+
 
 export default function HeaderBar({ mallName }: { mallName: string }) {
+  
   return (
     <View>
       {/* Top red bar with logo and title */}
       <View style={styles.topBar}>
         <Image
-          source={require("../../assets/images/image.png")}
+          source={require( "../../assets/images/roamwise_square.png")}
           style={styles.logo}
         />
         <Text style={styles.logoText}>ROAMWISE</Text>
@@ -25,30 +29,39 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",      // Center logo + text horizontally
-    backgroundColor: "#B00000",
-    paddingVertical: 16,           // Slightly taller for visual balance
-    paddingHorizontal: 16,
+    backgroundColor:  darkTheme.header.background, //constaints colors
+    paddingVertical: padding.header,           // Slightly taller for visual balance
+    paddingHorizontal: padding.horizontal,
+    borderTopLeftRadius: borderRadius.default,   // Rounded left top corner
+    borderTopRightRadius: borderRadius.default,  // Rounded top-left    
   },
   logo: {
-    width: 28,
-    height: 28,
-    marginRight: 8,
+    width: sizes.logo,
+    height: sizes.logo,
+    marginRight: margins.rightSm, 
     resizeMode: "contain",
   },
   logoText: {
-    color: "#fff",
-    fontSize: 20,
+    color:  darkTheme.text.primary,
+    fontSize: fontSizes.xl,
     fontWeight: "bold",
   },
   mallStrip: {
-    backgroundColor: "#1a1a1a",
-    paddingVertical: 10,
+    backgroundColor: darkTheme.background,
+    paddingVertical: padding.header,
     alignItems: "center",          // Center the mall name
-    borderBottomColor: "#B00000",  // Thin red underline for style
-    borderBottomWidth: 2,
+    borderBottomColor:  darkTheme.header.background,  // Thin red underline for style
+    borderBottomWidth: 	borderWidth.thick,
+    borderLeftWidth: 	borderWidth.thin,
+    borderRightWidth: 	borderWidth.thin,
+    borderBottomLeftRadius: borderRadius.default,    // Rounded left bottom corner
+    borderBottomRightRadius: borderRadius.default,
+     margin: spacing.edgePull,
+
   },
   mallText: {
-    color: "#fff",
-    fontSize: 16,
+    color: darkTheme.text.primary,
+    fontSize: fontSizes.mdPlus ,
+     textTransform: "uppercase",
   },
 });

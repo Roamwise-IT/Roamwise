@@ -1,6 +1,7 @@
 import React from "react";
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
+import { colors, darkTheme, spacing, margins, padding, borderRadius, borderWidth, sizes, fontFamilies, fontSizes, fontWeights, lineHeights } from "../../constraints";
 
 export default function Question() {
   return (
@@ -11,10 +12,10 @@ export default function Question() {
       {/* Right: Buttons */}
       <View style={styles.buttonsContainer}>
         <TouchableOpacity style={[styles.button, styles.noButton]}>
-          <Ionicons name="close" size={24} color="#fff" />
+          <Ionicons name="close" size={24} color={darkTheme.button.text}  />
         </TouchableOpacity>
-        <TouchableOpacity style={[styles.button, styles.yesButton]}>
-          <Ionicons name="checkmark" size={24} color="#fff" />
+        <TouchableOpacity style={[styles.button, styles.yesButton, ]}>
+          <Ionicons name="checkmark" size={29} color={darkTheme.button.text} /> //making the check mark bigger then the "close" so they look more even in size
         </TouchableOpacity>
       </View>
     </View>
@@ -23,34 +24,38 @@ export default function Question() {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "#222",
-    padding: 15,
-    borderRadius: 8,
-    marginVertical: 10,
+    backgroundColor: darkTheme.surface,
+    padding: padding.lg,
+    borderRadius: borderRadius.default,
+    marginVertical: margins.verticalMd,
     flexDirection: "row",           // <-- Put text & buttons on the same row
     justifyContent: "space-between",// <-- Push them apart
-    alignItems: "center",           // <-- Align vertically in the center
+    alignItems: "center",           // <-- Align vertically in the center         
+    borderLeftWidth: 	borderWidth.thin,            // Border on the left side
+    borderBottomWidth: 	borderWidth.thick,          // Border on the bottom side
+    borderRightWidth: borderWidth.thin,           // Border on the right side
+    borderColor: darkTheme.border.muted,        
   },
   text: {
-    color: "#fff",
-    fontSize: 18,
+    color: darkTheme.text.primary,
+    fontSize: fontSizes.xl,
     flexShrink: 1,
   },
   buttonsContainer: {
     flexDirection: "row",
   },
   button: {
-    width: 45,
-    height: 45,
-    borderRadius: 8,
+    width: sizes.buttonWidth,
+    height: sizes.buttonHeight,
+    borderRadius: borderRadius.button,
     justifyContent: "center",
     alignItems: "center",
-    marginLeft: 10,
+    marginLeft: margins.leftSm,
   },
   noButton: {
-    backgroundColor: "#B00000",
+    backgroundColor: darkTheme.button.background,
   },
   yesButton: {
-    backgroundColor: "#00A300",
+    backgroundColor: darkTheme.button.background,
   },
 });
