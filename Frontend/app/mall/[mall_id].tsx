@@ -36,7 +36,7 @@ export default function MallDetailsScreen() {
     console.log("📦 mall_id received:", mall_id);
 
     axios
-      .get(`${API_BASE_URL}/api/malls/${mall_id}/stores`)
+      .get(`${API_BASE_URL}/api/stores/api/malls/${mall_id}/stores`)
       .then((res) => {
         console.log("✅ Stores fetched:", res.data);
         setStores(res.data);
