@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { View, ScrollView, TextInput, StyleSheet, Text } from "react-native";
 import { useLocalSearchParams } from "expo-router";
+import Constants from "expo-constants";
 import axios from "axios";
 import StoreCard from "../../components/ui/StoreCard";
+
+const API_BASE_URL = Constants.expoConfig?.extra?.apiBaseUrl;
 
 export default function MallDetailsScreen() {
   const { mall_id } = useLocalSearchParams();
@@ -20,7 +23,7 @@ export default function MallDetailsScreen() {
     console.log("📦 mall_id received:", mall_id);
 
     axios
-      .get(`http://192.168.3.37:8000/api/stores/api/malls/${mall_id}/stores`)
+      .get(`${API_BASE_URL}/api/stores/api/malls/${mall_id}/stores`)
       .then((res) => {
         console.log("✅ Stores fetched:", res.data);
         setStores(res.data);

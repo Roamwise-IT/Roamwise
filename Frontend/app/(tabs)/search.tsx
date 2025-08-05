@@ -11,13 +11,16 @@ import {
 } from "react-native";
 import { useRouter } from "expo-router";
 import axios from "axios";
-import { SafeAreaView } from "react-native-safe-area-context"; // <-- Import SafeAreaView
+import Constants from "expo-constants";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 interface Mall {
   mall_id: string;
   name: string;
   description: string;
 }
+
+const API_BASE_URL = Constants.expoConfig?.extra?.apiBaseUrl;
 
 export default function SearchScreen() {
   const [malls, setMalls] = useState<Mall[]>([]);
@@ -26,9 +29,9 @@ export default function SearchScreen() {
 
   useEffect(() => {
     axios
-      .get("http://127.0.0.1:8000/api/malls/")
+      .get(`${API_BASE_URL}/api/malls`)
       .then((res) => setMalls(res.data))
-      .catch((err) => console.error("Error fetching malls:", err));
+      .catch((err) => console.error("❌ Error fetching malls:", err));
   }, []);
 
   const filtered = malls.filter((mall) =>
@@ -36,12 +39,12 @@ export default function SearchScreen() {
   );
 
   return (
-    <SafeAreaView style={styles.safeArea}> 
+    <SafeAreaView style={styles.safeArea}>
       <KeyboardAvoidingView
         behavior={Platform.OS === "ios" ? "padding" : undefined}
         style={styles.wrapper}
       >
-        {/* 🔴 Search bar at top */}
+        {/* 🔍 Search Bar */}
         <View style={styles.searchContainer}>
           <TextInput
             style={styles.searchInput}
@@ -72,7 +75,7 @@ export default function SearchScreen() {
 const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
-    backgroundColor: "#000", // Ensure background applies to SafeArea too
+    backgroundColor: "#000",
   },
   wrapper: {
     flex: 1,
@@ -81,7 +84,7 @@ const styles = StyleSheet.create({
   searchContainer: {
     backgroundColor: "#B00000",
     paddingHorizontal: 15,
-    paddingTop: Platform.OS === "ios" ? 10 : 20, // SafeArea handles notch spacing now
+    paddingTop: Platform.OS === "ios" ? 10 : 20,
     paddingBottom: 12,
   },
   searchInput: {

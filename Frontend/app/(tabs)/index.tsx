@@ -3,7 +3,10 @@ import { ScrollView, Text, TouchableOpacity, View, StyleSheet } from "react-nati
 import { SafeAreaView } from "react-native-safe-area-context";
 import HeaderBar from "../../components/ui/HeaderBar";
 import { useRouter } from "expo-router";
+import Constants from "expo-constants";
 import axios from "axios";
+
+const API_BASE_URL = Constants.expoConfig?.extra?.apiBaseUrl;
 
 export default function HomeScreen() {
   const router = useRouter();
@@ -11,7 +14,7 @@ export default function HomeScreen() {
 
   useEffect(() => {
     axios
-      .get("http://192.168.3.37:8000/api/malls") // Replace <YOUR-IP>
+      .get(`${API_BASE_URL}/api/malls`)
       .then((res) => setMalls(res.data))
       .catch((err) => console.error("Failed to fetch malls:", err));
   }, []);
@@ -28,8 +31,8 @@ export default function HomeScreen() {
           >
             <Text style={styles.name}>{mall.name}</Text>
             <Text style={styles.details}>📍 {mall.location}</Text>
-            <Text style={styles.details}>🏪 Current Mall : {mall.name}</Text>
-            <Text style={styles.details}>🛍️ Stores: {mall.description}</Text>
+            <Text style={styles.details}>🏪 Current Mall: {mall.name}</Text>
+            <Text style={styles.details}>🛍️ Description: {mall.description}</Text>
           </TouchableOpacity>
         ))}
       </ScrollView>
