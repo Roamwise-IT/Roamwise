@@ -1,8 +1,20 @@
 import React from "react";
 import { Tabs } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
-import { colors, darkTheme, spacing, margins, padding, borderRadius, borderWidth, sizes, fontFamilies, fontSizes, fontWeights, lineHeights } from "../../constraints";
-
+import {
+  colors,
+  darkTheme,
+  spacing,
+  margins,
+  padding,
+  borderRadius,
+  borderWidth,
+  sizes,
+  fontFamilies,
+  fontSizes,
+  fontWeights,
+  lineHeights,
+} from "@/constraints";
 
 export default function TabLayout() {
   return (
@@ -10,19 +22,18 @@ export default function TabLayout() {
       screenOptions={{
         headerShown: false,
         tabBarStyle: {
-        backgroundColor:darkTheme.nav.background, // Grey background for the strip
-      borderColor:  darkTheme.header.background, // Red line
-      borderTopWidth: 	borderWidth.thick,
-      borderLeftWidth: 	borderWidth.thin,
-      borderRightWidth: 	borderWidth.thin,
-      borderTopLeftRadius: borderRadius.default,
-      borderTopRightRadius: borderRadius.default,
-      margin: spacing.edgePull,
-      height: 75,   
-      paddingTop: padding.xs, 
-      position: "absolute", //  for proper radius
-
-    },
+          backgroundColor: darkTheme.nav.background, // Grey background for the strip
+          borderColor: darkTheme.header.background, // Red line
+          borderTopWidth: borderWidth.thick,
+          borderLeftWidth: borderWidth.thin,
+          borderRightWidth: borderWidth.thin,
+          borderTopLeftRadius: borderRadius.default,
+          borderTopRightRadius: borderRadius.default,
+          margin: spacing.edgePull,
+          height: 75,
+          paddingTop: padding.xs,
+          position: "absolute", //  for proper radius
+        },
         tabBarActiveTintColor: darkTheme.nav.activeTint,
         tabBarInactiveTintColor: darkTheme.nav.inactiveTint,
       }}
@@ -41,7 +52,7 @@ export default function TabLayout() {
         options={{
           title: "Search",
           tabBarIcon: ({ color, size }) => (
-            <Ionicons name="search" size={size} color={color} /> 
+            <Ionicons name="search" size={size} color={color} />
           ),
         }}
       />

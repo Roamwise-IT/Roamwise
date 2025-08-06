@@ -1,7 +1,20 @@
 import React from "react";
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
-import { colors, darkTheme, spacing, margins, padding, borderRadius, borderWidth, sizes, fontFamilies, fontSizes, fontWeights, lineHeights } from "../../constraints";
+import {
+  colors,
+  darkTheme,
+  spacing,
+  margins,
+  padding,
+  borderRadius,
+  borderWidth,
+  sizes,
+  fontFamilies,
+  fontSizes,
+  fontWeights,
+  lineHeights,
+} from "@/constraints";
 
 export default function Question() {
   return (
@@ -12,10 +25,12 @@ export default function Question() {
       {/* Right: Buttons */}
       <View style={styles.buttonsContainer}>
         <TouchableOpacity style={[styles.button, styles.noButton]}>
-          <Ionicons name="close" size={24} color={darkTheme.button.text}  />
+          <Ionicons name="close" size={24} color={darkTheme.button.text} />
         </TouchableOpacity>
-        <TouchableOpacity style={[styles.button, styles.yesButton, ]}>
-          <Ionicons name="checkmark" size={29} color={darkTheme.button.text} /> //making the check mark bigger then the "close" so they look more even in size
+        <TouchableOpacity style={[styles.button, styles.yesButton]}>
+          <Ionicons name="checkmark" size={29} color={darkTheme.button.text} />{" "}
+          {/*making the check mark bigger than the "close" so they look more even
+          in size*/}
         </TouchableOpacity>
       </View>
     </View>
@@ -28,13 +43,13 @@ const styles = StyleSheet.create({
     padding: padding.lg,
     borderRadius: borderRadius.default,
     marginVertical: margins.verticalMd,
-    flexDirection: "row",           // <-- Put text & buttons on the same row
-    justifyContent: "space-between",// <-- Push them apart
-    alignItems: "center",           // <-- Align vertically in the center         
-    borderLeftWidth: 	borderWidth.thin,            // Border on the left side
-    borderBottomWidth: 	borderWidth.thick,          // Border on the bottom side
-    borderRightWidth: borderWidth.thin,           // Border on the right side
-    borderColor: darkTheme.border.muted,        
+    flexDirection: "row", // <-- Put text & buttons on the same row
+    justifyContent: "space-between", // <-- Push them apart
+    alignItems: "center", // <-- Align vertically in the center
+    borderLeftWidth: borderWidth.thin, // Border on the left side
+    borderBottomWidth: borderWidth.thick, // Border on the bottom side
+    borderRightWidth: borderWidth.thin, // Border on the right side
+    borderColor: darkTheme.border.muted,
   },
   text: {
     color: darkTheme.text.primary,
