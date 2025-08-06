@@ -1,16 +1,6 @@
-// constraints/index.ts
+export * from "./colors";
+export * from "./sizing";
+export * from "./typography";
+export * from "./themes"; // light & dark theme
 
-//  Theme & Color 
-export { colors } from "./colors";
-export { darkTheme } from "./theme";
-
-//  Sizing 
-export { spacing, margins, padding, borderRadius, borderWidth, sizes } from "./sizing";
-
-//  Typography T
-export {
-  fontFamilies,
-  fontSizes,
-  fontWeights,
-  lineHeights,
-} from "./typography";
+// Add more as needed
