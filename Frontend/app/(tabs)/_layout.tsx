@@ -14,7 +14,7 @@ import {
   fontSizes,
   fontWeights,
   lineHeights,
-} from "@/constraints";
+} from "@/constants";
 
 export default function TabLayout() {
   return (
