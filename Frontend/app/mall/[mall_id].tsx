@@ -10,6 +10,7 @@ import { useLocalSearchParams } from "expo-router";
 import Constants from "expo-constants";
 import axios from "axios";
 import StoreCard from "../../components/ui/StoreCard";
+import HeaderBar from "../../components/ui/HeaderBar"; // <-- Import the custom header
 
 // 🌐 Base URL from app.config.js
 const API_BASE_URL = Constants.expoConfig?.extra?.API_BASE_URL;
@@ -17,6 +18,7 @@ const API_BASE_URL = Constants.expoConfig?.extra?.API_BASE_URL;
 export default function MallDetailsScreen() {
   const { mall_id } = useLocalSearchParams();
   const [stores, setStores] = useState([]);
+  const [mallName, setMallName] = useState(""); // <-- For mall name in header
   const [search, setSearch] = useState("");
   const [error, setError] = useState("");
 
@@ -35,6 +37,18 @@ export default function MallDetailsScreen() {
 
     console.log("📦 mall_id received:", mall_id);
 
+    // Fetch mall details (for header)
+    axios
+      .get(`${API_BASE_URL}/api/malls/${mall_id}`)
+      .then((res) => {
+        setMallName(res.data.name);
+      })
+      .catch((err) => {
+        console.error("❌ Error fetching mall details:", err);
+        setMallName("Mall Details");
+      });
+
+    // Fetch stores
     axios
       .get(`${API_BASE_URL}/api/stores/api/malls/${mall_id}/stores`)
       .then((res) => {
@@ -54,6 +68,10 @@ export default function MallDetailsScreen() {
 
   return (
     <View style={styles.container}>
+      {/* Custom Header */}
+      <HeaderBar mallName={mallName || "Mall Details"} />
+
+      {/* Search Bar */}
       <TextInput
         style={styles.searchBar}
         placeholder="Search stores..."
@@ -62,6 +80,7 @@ export default function MallDetailsScreen() {
         onChangeText={setSearch}
       />
 
+      {/* Store List or Error */}
       {error ? (
         <Text style={styles.error}>{error}</Text>
       ) : (
