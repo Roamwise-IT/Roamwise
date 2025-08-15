@@ -15,3 +15,4 @@ class Mall(Base):
     opening_hours = Column(JSON)
     map_image_url = Column(Text)
     created_at = Column(TIMESTAMP)
+    nav_link = Column(Text)

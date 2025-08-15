@@ -11,6 +11,7 @@ class MallResponse(BaseModel):
     contact_info: Optional[dict]
     opening_hours: Optional[dict]
     map_image_url: Optional[str]
+    nav_link: Optional[str]
 
     model_config = {
         "from_attributes": True

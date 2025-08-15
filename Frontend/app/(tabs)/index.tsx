@@ -5,6 +5,8 @@ import {
   TouchableOpacity,
   View,
   StyleSheet,
+  Linking,
+  Alert,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import HeaderBar from "../../components/ui/HeaderBar";
@@ -17,7 +19,7 @@ const API_BASE_URL = Constants.expoConfig?.extra?.API_BASE_URL;
 
 export default function HomeScreen() {
   const router = useRouter();
-  const [malls, setMalls] = useState([]);
+  const [malls, setMalls] = useState<any[]>([]);
   const [error, setError] = useState("");
 
   useEffect(() => {
@@ -30,7 +32,7 @@ export default function HomeScreen() {
     axios
       .get(`${API_BASE_URL}/api/malls`)
       .then((res) => {
-        setMalls(res.data);
+        setMalls(res.data || []);
         setError("");
       })
       .catch((err) => {
@@ -39,25 +41,53 @@ export default function HomeScreen() {
       });
   }, []);
 
+  const openNavLink = async (url?: string) => {
+    if (!url) {
+      Alert.alert("Navigation", "No navigation link available.");
+      return;
+    }
+    try {
+      const supported = await Linking.canOpenURL(url);
+      await Linking.openURL(supported ? url : String(url));
+    } catch {
+      Alert.alert("Navigation", "Could not open Google Maps.");
+    }
+  };
+
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "#000" }}>
-      <HeaderBar mallName="Explore Malls" />
+      <HeaderBar mallName="Know where you're going" />
 
       {error ? (
         <Text style={styles.error}>{error}</Text>
       ) : (
         <ScrollView style={{ padding: 15 }}>
           {malls.map((mall) => (
-            <TouchableOpacity
-              key={mall.mall_id}
-              onPress={() => router.push(`/mall/${mall.mall_id}`)}
-              style={styles.card}
-            >
-              <Text style={styles.name}>{mall.name}</Text>
-              <Text style={styles.details}>📍 {mall.location}</Text>
-              <Text style={styles.details}>🏪 Current Mall: {mall.name}</Text>
-              <Text style={styles.details}>🛍️ Description: {mall.description}</Text>
-            </TouchableOpacity>
+            <View key={mall.mall_id} style={styles.card}>
+              {/* Tapping THIS area → stores page, send mall name too */}
+              <TouchableOpacity
+                onPress={() =>
+                  router.push({
+                    pathname: `/mall/${mall.mall_id}`,
+                    params: {
+                      mall_id: mall.mall_id,
+                      mall_name: mall.name,
+                    },
+                  })
+                }
+              >
+                <Text style={styles.name}>{mall.name}</Text>
+                <Text style={styles.details}>Description: {mall.description}</Text>
+              </TouchableOpacity>
+
+              {/* Separate button → navigation only */}
+              <TouchableOpacity
+                style={styles.goNowButton}
+                onPress={() => openNavLink(mall.nav_link)}
+              >
+                <Text style={styles.goNowText}>Go Now</Text>
+              </TouchableOpacity>
+            </View>
           ))}
         </ScrollView>
       )}
@@ -87,5 +117,18 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontSize: 16,
     marginTop: 30,
+  },
+  goNowButton: {
+    backgroundColor: "#4CAF50",
+    paddingVertical: 10,
+    paddingHorizontal: 16,
+    borderRadius: 6,
+    alignSelf: "flex-start",
+    marginTop: 10,
+  },
+  goNowText: {
+    color: "#fff",
+    fontWeight: "bold",
+    fontSize: 16,
   },
 });

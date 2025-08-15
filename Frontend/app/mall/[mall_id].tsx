@@ -10,15 +10,15 @@ import { useLocalSearchParams } from "expo-router";
 import Constants from "expo-constants";
 import axios from "axios";
 import StoreCard from "../../components/ui/StoreCard";
-import HeaderBar from "../../components/ui/HeaderBar"; // <-- Import the custom header
+import HeaderBar from "../../components/ui/HeaderBar";
 
 // 🌐 Base URL from app.config.js
 const API_BASE_URL = Constants.expoConfig?.extra?.API_BASE_URL;
 
 export default function MallDetailsScreen() {
-  const { mall_id } = useLocalSearchParams();
+  const { mall_id, mall_name } = useLocalSearchParams();
   const [stores, setStores] = useState([]);
-  const [mallName, setMallName] = useState(""); // <-- For mall name in header
+  const [mallName, setMallName] = useState(mall_name || "Mall Details");
   const [search, setSearch] = useState("");
   const [error, setError] = useState("");
 
@@ -35,24 +35,22 @@ export default function MallDetailsScreen() {
       return;
     }
 
-    console.log("📦 mall_id received:", mall_id);
-
-    // Fetch mall details (for header)
-    axios
-      .get(`${API_BASE_URL}/api/malls/${mall_id}`)
-      .then((res) => {
-        setMallName(res.data.name);
-      })
-      .catch((err) => {
-        console.error("❌ Error fetching mall details:", err);
-        setMallName("Mall Details");
-      });
+    // If mall_name wasn't passed, fetch mall details
+    if (!mall_name) {
+      axios
+        .get(`${API_BASE_URL}/api/malls/${mall_id}`)
+        .then((res) => {
+          setMallName(res.data.name);
+        })
+        .catch((err) => {
+          console.error("❌ Error fetching mall details:", err);
+        });
+    }
 
     // Fetch stores
     axios
       .get(`${API_BASE_URL}/api/stores/api/malls/${mall_id}/stores`)
       .then((res) => {
-        console.log("✅ Stores fetched:", res.data);
         setStores(res.data);
         setError("");
       })
@@ -68,10 +66,8 @@ export default function MallDetailsScreen() {
 
   return (
     <View style={styles.container}>
-      {/* Custom Header */}
-      <HeaderBar mallName={mallName || "Mall Details"} />
+      <HeaderBar mallName={mallName} />
 
-      {/* Search Bar */}
       <TextInput
         style={styles.searchBar}
         placeholder="Search stores..."
@@ -80,7 +76,6 @@ export default function MallDetailsScreen() {
         onChangeText={setSearch}
       />
 
-      {/* Store List or Error */}
       {error ? (
         <Text style={styles.error}>{error}</Text>
       ) : (

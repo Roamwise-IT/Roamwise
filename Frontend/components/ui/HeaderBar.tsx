@@ -7,7 +7,7 @@ export default function HeaderBar({ mallName }: { mallName: string }) {
       {/* Top red bar with logo and title */}
       <View style={styles.topBar}>
         <Image
-          source={require("../../assets/images/image.png")}
+          source={require("../../assets/images/splash/roamwise_transparent.png")}
           style={styles.logo}
         />
         <Text style={styles.logoText}>ROAMWISE</Text>
